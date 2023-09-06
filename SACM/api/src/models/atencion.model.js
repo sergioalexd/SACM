@@ -8,20 +8,25 @@ module.exports = (sequelize) => {
             idAtencion: {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
-                primaryKey: true
+                primaryKey: true,
+                allowNull: false
             },
             descripcion: {
-                type: DataTypes.STRING(50),
-                allowNull: false
+                type: DataTypes.STRING(255)
             },
             parametrosClinicos: {
-                type: DataTypes.STRING(50),
-                allowNull: false
+                type: DataTypes.STRING(255)
+            },
+            diagnostico: {
+                type: DataTypes.STRING(255)
+            },
+            indicaciones: {
+                type: DataTypes.STRING(255)
             },
             status: {
                 type: DataTypes.ENUM("ACTIVE", "BLOCK", "DELETE", "PENDING"),
                 allowNull: false,
-                defaultValue: "ACTIVE",
+                defaultValue: "PENDING",
               },
         }   
     )   

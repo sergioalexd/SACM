@@ -1,5 +1,5 @@
-const {User} = require("../database/conexion.js");
-const bcrypt = require("bcrypt");
+const { User } = require("../database/conexion.js");
+const bcrypt = require("bcryptjs");
 
 const createUser = async (req, res) => {
   const { nombre, apellido, correo, contrasena } = req.body;
@@ -19,8 +19,9 @@ const createUser = async (req, res) => {
         email: correo,
         password: bcrypt.hashSync(contrasena, salt),
       };
-      await User.create(usuario);
-      res.status(200).json({ msg: "Usuario registrado con éxito" });
+      const newUser = await User.create(usuario);
+      await newUser.save();
+      res.status(200).json({ status: 200, msg: "Usuario registrado", newUser });
     } else {
       res.status(400).json({ msg: "El correo ya esta registrado" });
     }

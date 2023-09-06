@@ -1,14 +1,15 @@
-
-import './App.css'
-import LoginForm from './components/LoginForm'
+import "./App.css";
+import LoginForm from "./components/LoginForm";
+import { UserContextProvider } from "./context/GlobalContext.jsx";
 
 function App() {
-
   return (
     <>
-      <LoginForm />
+      <UserContextProvider>
+        <LoginForm />
+      </UserContextProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

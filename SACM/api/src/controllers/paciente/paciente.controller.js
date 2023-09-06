@@ -1,5 +1,5 @@
-const { Paciente } = require("../../database/conexion.js"); // sequalize
-const bcrypt = require("bcrypt");
+const { Paciente, FichaMedica } = require("../../database/conexion.js"); // sequalize
+const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../../services/generar-jwt");
 const { validarRut } = require("../../services/validar-rut");
 
@@ -63,9 +63,13 @@ const crearPaciente = async (req, res) => {
       const newPaciente = await Paciente.create(paciente);
       await newPaciente.save();
 
+      const newFichaMedica = await FichaMedica.create({
+        idPaciente: newPaciente.idPaciente
+      })
+
       const token = await generarJWT(newPaciente.idPaciente);
 
-      res.status(200).json({ msg: "paciente registrado", newPaciente, token });
+      res.status(200).json({ msg: "paciente registrado", newPaciente, newFichaMedica, token });
     } else {
       res.status(400).json({ msg: "El correo o rut ya esta registrado" });
     }

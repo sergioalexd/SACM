@@ -36,15 +36,16 @@ dbConnection.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Paciente, Paramedico, Historia, Cita, ParamedicoPaciente, Atencion } = dbConnection.models;
+const { User, Paciente, Paramedico, FichaMedica, Cita, ParamedicoPaciente, Atencion } = dbConnection.models;
 
-    Paciente.hasOne(Historia, { foreignKey: "idPaciente" });
-    Historia.hasMany(Cita, { foreignKey: "idHistoria" });
+    Paciente.hasOne(FichaMedica, { foreignKey: "idPaciente" });
+    FichaMedica.hasMany(Atencion, { foreignKey: "idFichaMedica" });
     Paramedico.hasMany(Cita, { foreignKey: "idParamedico" });
+    Cita.hasOne(Paramedico, { foreignKey: "idParamedico" });
     Paciente.hasMany(Cita, { foreignKey: "idPaciente" });
     Cita.hasOne(Paciente, { foreignKey: "idPaciente" });
-    Paramedico.belongsToMany(Paciente, { through: "paramedico_paciente" });
-    Paciente.belongsToMany(Paramedico, { through: "paramedico_paciente" });
+    Paramedico.belongsToMany(Paciente, { through: "paramedico_paciente"});
+    Paciente.belongsToMany(Paramedico, { through: "paramedico_paciente"});
     Cita.hasOne(Atencion, { foreignKey: "idCita" });
 
 

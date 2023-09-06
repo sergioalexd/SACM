@@ -1,6 +1,6 @@
 
 const {Paramedico} = require("../../database/conexion.js");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../../services/generar-jwt");
 const {validarRut} = require("../../services/validar-rut"); 
 

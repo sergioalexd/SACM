@@ -58,10 +58,8 @@ class Server {
     this.app.use(express.static(__dirname + "/public"));
   }
 
-  //force:true lee las tablas de la BD las elimina y las recrea  (Para Desarrollo)
-  //force:false crea las tablas de la BD y los modelos nuevos implementados  (Para Producción)
   listen() {
-    conn.sync({ force: true}).then(() => {
+    conn.sync({ force: false}).then(() => {
       this.app.listen(this.port, () => {
         console.log("Servidor corriendo en puerto", this.port);
       });
