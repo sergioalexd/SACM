@@ -1,7 +1,30 @@
 // footer con 4 contenedores: logo, contacto, redes sociales, links hecho una grilla de bootstrap
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 
 function Footer() {
+    const [tipoUsuario, setTipoUsuario] = useState("paciente");
+
+    useEffect(() => {
+        const usuario = JSON.parse(localStorage.getItem("usuario"));
+        if (!usuario) {
+          return;
+        }
+        const tipoUsuario = Object.prototype.hasOwnProperty.call(usuario, "idParamedico");
+        switch (tipoUsuario) {
+          case true:
+            setTipoUsuario("paramedico");
+            break;
+          case false:
+            setTipoUsuario("paciente");
+            break;
+          default:
+            setTipoUsuario("paramedico");
+            break;
+        }
+      }, [tipoUsuario]);
+    
   return (
    <footer>
         <div className="container-fluid p-5">
@@ -16,6 +39,22 @@ function Footer() {
                             email
                         </a>
                     </p>
+                    <p>
+                        <a href="tel:+56912345678">
+                            +56912345678
+                        </a>
+                    </p>
+                    {
+                        tipoUsuario === "paramedico" ? (
+                            null
+                        ) : (
+                            <p>
+                                <Link to="/admin/login-paramedico">
+                                    Iniciar sesión paramédico
+                                </Link>
+                            </p>
+                        )
+                    }
                     </div>
                 <div className="col-md-3">
                     <h3>Comunidad</h3>

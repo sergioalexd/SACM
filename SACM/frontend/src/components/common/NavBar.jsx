@@ -5,6 +5,7 @@ import SignOut from "./SignOut";
 
 const NavBar = () => {
   const [isLogged, setIsLogged] = useState(false);
+  const [tipoUsuario, setTipoUsuario] = useState("paciente");
 
   useEffect(() => {
     const usuarioLog = localStorage.getItem("token");
@@ -14,6 +15,26 @@ const NavBar = () => {
       setIsLogged(true);
     }
   }, [isLogged]);
+
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario) {
+      return;
+    }
+    const tipoUsuario = Object.prototype.hasOwnProperty.call(usuario, "idParamedico");
+    switch (tipoUsuario) {
+      case true:
+        setTipoUsuario("paramedico");
+        break;
+      case false:
+        setTipoUsuario("paciente");
+        break;
+      default:
+        setTipoUsuario("paciente");
+        break;
+    }
+  }, [tipoUsuario]);
+
 
   return (
     <>
@@ -50,12 +71,21 @@ const NavBar = () => {
                   Inicio
                 </a> */}
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#" style={{ color: "white" }}>
+              {
+                tipoUsuario === "paciente" ? null :
+                <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/admin/paramedicos"
+                  style={{ color: "white" }}
+                >
                   Ficha Clínica
-                </a>
+                  </Link>
               </li>
-              <li className="nav-item">
+              }
+              {
+                tipoUsuario === "paramedico" ? null :
+                <li className="nav-item">
                 <Link
                   className="nav-link"
                   to="/pacientes"
@@ -63,10 +93,9 @@ const NavBar = () => {
                 >
                   Pacientes
                 </Link>
-                {/* <a className="nav-link" href="#">
-                  Pacientes
-                </a> */}
               </li>
+              }
+              
               <li className="nav-item">
                 <a className="nav-link" href="#" style={{ color: "white" }}>
                   Nosotros

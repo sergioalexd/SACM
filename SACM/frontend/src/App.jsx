@@ -1,14 +1,23 @@
-import "./App.css";
-import { UserContextProvider } from "./context/GlobalContext.jsx";
-import RegistroCliente from "./components/pacientes/RegistroPacienteForm.jsx";
+import { useEffect, useState } from "react";
+import { ProtectedRoute } from "./components/common/ProtectedRoute";
 
 function App() {
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (usuario.idParamedico) {
+      setIsLogged(true);
+    }
+    setIsLogged(false);
+  }, []);
+
   return (
     <>
-      <UserContextProvider>
-        {/* <LoginForm /> */}
-        <RegistroCliente />
-      </UserContextProvider>
+      <ProtectedRoute
+        paramedico={isLogged}
+        redirecTo="/admin/login-paramedico"
+      />
     </>
   );
 }

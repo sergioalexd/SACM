@@ -7,11 +7,12 @@ import Error404 from "../components/common/404";
 import Home from "../components/layout/Home";
 import ParamedicoPage from "../components/paramedicos/ParamedicoPage";
 import LoginPageParamedico from "../components/paramedicos/LoginPageParamedico";
+import { ProtectedRoute } from "../components/common/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home  />,
+    element: <Home />,
   },
   {
     path: "/pacientes",
@@ -30,13 +31,19 @@ const router = createBrowserRouter([
     element: <RegisterPagePaciente />,
   },
   {
-    path: "/admin/paramedicos",
-    element: <ParamedicoPage />,
+    element: <ProtectedRoute paramedico={
+      JSON.parse(localStorage.getItem("usuario")) ? JSON.parse(localStorage.getItem("usuario"))?.idParamedico : false
+    } />,
+    children: [
+      {
+        path: "/admin/paramedicos",
+        element: <ParamedicoPage />,
+      },
+    ],
   },
   {
     path: "/admin/login-paramedico",
     element: <LoginPageParamedico />,
-
   },
   {
     path: "*",

@@ -14,6 +14,14 @@ function PacientePage() {
 
   useEffect(() => {
     const usuarioLog = localStorage.getItem("usuario");
+    if(usuarioLog) {
+      const usuario = JSON.parse(usuarioLog);
+      const tipoUsuario = Object.prototype.hasOwnProperty.call(usuario, "idParamedico");
+      if (tipoUsuario) {
+        navigate("/admin/paramedicos");
+      }
+    }
+
     if (!usuarioLog) {
       setIsLogging(false);
       navigate("/login-paciente");

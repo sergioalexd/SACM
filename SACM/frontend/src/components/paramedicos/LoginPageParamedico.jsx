@@ -19,14 +19,14 @@ function LoginPageParamedico() {
         >
           <LoginFormParamedico />
           <div className="row my-3" style={{ width: "33%", margin: "auto", textAlign:"center" }}>
-            <p>¿No tienes cuenta?</p>
+            <p>¿Llegaste acá por error?</p>
             <button
               className="btn btn-sm btn-primary"
               onClick={() => {
-                navigate("/admin/registro-paramedico");
+                navigate("/");
               }}
             >
-              Regístrate
+              Ir al inicio
             </button>
           </div>
         </div>
