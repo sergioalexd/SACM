@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../common/NavBar";
-import Cita from "../Cita";
 import SignOut from "../common/SignOut";
 import GetCitasById from "./GetCitasById";
 import Footer from "../common/Footer";
 import PerfilParamedico from "./PerfilParamedico";
 import UpdateDataParamedico from "./UpdateDataParamedico";
+import SearchPaciente from "./searchPaciente";
 
 function ParamedicoPage() {
   const [isLogin, setIsLogging] = useState(false);
@@ -30,7 +30,10 @@ function ParamedicoPage() {
       </div>
       <div className="row p-2">
         <div className="col-md-4 p-3">
-          <h4>Perfil</h4>
+          <SearchPaciente />
+        </div>
+        <div className="col-md-4 p-3">
+          <h4>Datos del paramédico</h4>
           <PerfilParamedico />
         </div>
         <div className="col-md-4 p-3">
@@ -45,17 +48,21 @@ function ParamedicoPage() {
               <GetCitasById />
             </div>
           </div>
+          <div className="row my-3">
+          <div className="col-auto p-5 text-center">
+                {isLogin ? <SignOut /> : null}
+              </div>
+              </div>
         </div>
         <div className="col-md-4 p-3">
           <div className="row">
-            <div className="col-12">
-              <h4>Agendar cita</h4>
-              <Cita />
-            </div>
+            {/* <div className="col-12">
+              <h4>Indicar disponibilidad</h4>
+            </div> */}
             <div className="row">
-              <div className="col-auto p-5 text-center">
+              {/* <div className="col-auto p-5 text-center">
                 {isLogin ? <SignOut /> : null}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

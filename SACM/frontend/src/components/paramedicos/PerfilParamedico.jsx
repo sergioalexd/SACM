@@ -22,8 +22,9 @@ function PerfilParamedico() {
       {!isLogin ? (
         <p>{"No estas logueado"}</p>
       ) : (
-        <div className="col-12 p-5 text-black rounded-5"
-        style={{ backgroundColor: "#ffffff" }}
+        <div
+          className="col-12 p-5 text-black rounded-5"
+          style={{ backgroundColor: "#ffffff" }}
         >
           <div className="row py-1">
             <div className="col-12">
@@ -32,39 +33,49 @@ function PerfilParamedico() {
                 alt="..."
                 className="rounded-circle img-thumbnail img-fluid my-3"
               />
-              <p className="fw-bold">{profile.name} {profile.lastName}</p>
+              <p className="fw-bold">
+                {profile.name} {profile.lastName}
+              </p>
               <p>{profile.telefono}</p>
-             <hr /> 
+              <hr />
             </div>
           </div>
           <div className="row">
             <div className="col-sm-12">
-              <p>Información del paciente</p>
+              <p>Datos</p>
               <table>
                 <tbody>
-                    <tr>
-                        <td><p><strong>Rut</strong></p></td>
-                        <td><p className="fs-6">{profile.rut}</p></td>
-                    </tr>
-                    <tr>
-                        <td><p><strong>Correo</strong></p></td>
-                        <td className="fs-6"><p>{profile.email}</p></td>
-                    </tr>
+                  <tr>
+                    <td>
+                      <p>
+                        <strong>Rut</strong>
+                      </p>
+                    </td>
+                    <td>
+                      <p className="fs-6">{profile.rut}</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>
+                        <strong>Correo</strong>
+                      </p>
+                    </td>
+                    <td className="fs-6">
+                      <p>{profile.email}</p>
+                    </td>
+                  </tr>
                 </tbody>
-                </table>
-                <hr /> 
-                <div className="row">
-                    <div className="col-12">
-                        <p><strong>Dirección</strong></p>
-                        <p>{profile.address}</p>
-                        </div>
-                        </div>
-            </div>
-          </div>
-          <div className="row py-5">
-            <div className="col-12">
-              <h4>Ultima visita</h4>
-              <p>Fecha</p>
+              </table>
+              <hr />
+              <div className="row">
+                <div className="col-12">
+                  <p>
+                    <strong>Dirección</strong>
+                  </p>
+                  <p>{profile.address}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

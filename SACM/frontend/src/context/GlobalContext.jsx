@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 
 // Aquí vamos a crear el estado inicial que tendrá el context y consumiremos con
 // useReducer
-const initialState = { user: {}, isLogging: false };
+const initialState = { user: {}, isLogging: false, pacientesList: [] };
 
 // Este será nuestro reducer que nos ayudará a crear o eliminar los productos
 // dependiendo el action.type que reciba
@@ -24,6 +24,11 @@ const reducer = (state, action) => {
       case "LOGIN_OUT":
       return {
         state: {isLogging: false, user: {}}
+      };
+    case "GET_PACIENTES":
+      return {
+        ...state,
+        pacientesList: action.payload,
       };
     default:
       return {

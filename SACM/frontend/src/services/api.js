@@ -107,4 +107,18 @@ export class Api {
         );
         return response;
     }
+
+    static async getAllPacientes(token) {
+        const response = await fetch(url + "/pacientes/",
+        {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+    
 }

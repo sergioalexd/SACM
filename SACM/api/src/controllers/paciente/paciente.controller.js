@@ -154,8 +154,19 @@ const loginPaciente = async (req, res) => {
     res.status(500).json({ msg: "Algo salió mal", error, status: 500 });
     console.log("error", { msg: error });
   }
+
 };
 
+const getAllPacientes = async (req, res) => {
+  try {
+    const pacientes = await Paciente.findAll();
+    res.status(200).json({ msg: "Pacientes obtenidos", pacientes, status: 200 });
+  } catch (error) {
+    res.status(500).json({ msg: "Algo salió mal", error, status: 500 });
+    console.log("error", { msg: error });
+  }
+}
 
 
-module.exports = { crearPaciente, editarPaciente, loginPaciente };
+
+module.exports = { crearPaciente, editarPaciente, loginPaciente, getAllPacientes };
