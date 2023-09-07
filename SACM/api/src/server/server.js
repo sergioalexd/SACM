@@ -7,7 +7,7 @@ const { conn } = require("../../src/database/conexion.js");
 class Server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || 8080;
+    this.port = process.env.PORT || 4000;
     this.paths = {
       frontend: "/front",
       usuarios: "/api/v1/usuarios",

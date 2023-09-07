@@ -11,6 +11,13 @@ const validarRut = (rut) => {
   return dvCalculado === digitoVerificador;
 }
 
+function retonarRut(rut) {
+  rut = rut.replace(/[.-]/g, ''); // Eliminar puntos y guiones
+  const rutNumerico = parseInt(rut.slice(0, -1), 10);
+  const digitoVerificador = rut.slice(-1).toUpperCase();
+  return `${rutNumerico}-${digitoVerificador}`;
+}
+
 function calcularDigitoVerificador(rutNumerico) {
   const serie = [2, 3, 4, 5, 6, 7, 2, 3];
   let suma = 0;
@@ -28,5 +35,6 @@ function calcularDigitoVerificador(rutNumerico) {
   }
 
   module.exports = {
-    validarRut
+    validarRut,
+    retonarRut
   }

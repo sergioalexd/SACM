@@ -26,6 +26,14 @@ const getCitas = async (req, res) => {
 const crearCita = async (req, res = response) => {
   const { fecha, hora, idPaciente, idParamedico, idFichaMedica } = req.body;
 
+  if (!fecha || !hora || !idPaciente || !idParamedico || !idFichaMedica) {
+    return res.status(400).json({
+      ok: false,
+      status: 400,
+      msg: "Todos los campos son obligatorios",
+    });
+  };
+
   // Verificar si la hora está disponible en la base de datos
   const citaExistente = await Cita.findOne({
     where: {
