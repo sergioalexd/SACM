@@ -4,7 +4,11 @@ const { Cita, Paciente, Paramedico, Atencion } = require("../../database/conexio
 
 const getCitas = async (req, res) => {
   try {
-    const citas = await Cita.findAll();
+    const citas = await Cita.findAll(
+      {
+        include: [ Atencion ]
+      }
+    );
     res.json({
       ok: true,
       citas,

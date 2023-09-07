@@ -49,7 +49,7 @@ function Cita() {
     e.preventDefault();
     console.log("data:", data);
 
-    fetch("http://localhost:8080/api/v1/citas", {
+    fetch("http://192.168.1.87:8080/api/v1/citas", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

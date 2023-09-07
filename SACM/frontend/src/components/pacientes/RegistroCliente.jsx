@@ -27,7 +27,7 @@ function LoginForm() {
     }
     e.preventDefault();
     setData(data);
-    fetch("http://192.168.1.87:8080/api/v1/usuarios/login", {
+    fetch("http://192.168.1.87:8080/api/v1/pacientes/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
