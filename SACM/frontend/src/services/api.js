@@ -120,5 +120,18 @@ export class Api {
         );
         return response;
     }
-    
+
+    static async getPacientesByNames(names, token) {
+        const response = await fetch(url + "/pacientes/bynames/" + names,
+        {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
 }

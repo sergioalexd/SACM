@@ -9,6 +9,30 @@ function SearchPaciente() {
     setNombre(e.target.value);
     }
 
+    const handleClick = (e) => {
+        e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+        return;
+    }
+    Api.getPacientesByNames(nombre, token)
+        .then((response) => response.json())
+        .then((data) => {
+        if (data.status === 200) {
+            setPacientes(data.pacientes);
+            document.getElementById("inputNombre").value = "";
+        } else {
+            alert(data.msg);
+        }
+        }
+        )
+        .catch((error) => {
+        console.log(error);
+        }
+        );
+         
+    }
+
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const token = localStorage.getItem("token");
@@ -41,11 +65,12 @@ function SearchPaciente() {
                 className="form-control"
                 id="inputNombre"
                 placeholder="Nombre del paciente"
+                onChange={handleSearch}
               />
             </div>
           </form>
           <div className="col-md-12">
-            <button type="button" className="btn btn-primary" onClick={handleSearch}>
+            <button type="button" className="btn btn-primary" onClick={handleClick}>
               Buscar
             </button>
           </div>
@@ -57,6 +82,10 @@ function SearchPaciente() {
                       <h5 className="card-title">
                         {paciente.name} {paciente.lastName}
                       </h5>
+                        <p className="card-text">Rut: {paciente.rut}</p>
+                        <p className="card-text">Correo: {paciente.email}</p>
+                        <p className="card-text">Telefono: {paciente.telefono}</p>
+                        <p className="card-text">Comuna: {paciente.comuna}</p>
                     </div>
                   </div>
                 ))
