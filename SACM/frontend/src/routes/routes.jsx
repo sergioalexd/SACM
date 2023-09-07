@@ -1,22 +1,47 @@
 import { createBrowserRouter } from "react-router-dom";
-import CreatePaciente from "../components/pacientes/RegistroCliente";
-import LoginForm from "../components/pacientes/LoginForm";
-
-
+import PacientePage from "../components/pacientes/PacientePage";
+import LoginUser from "../components/LoginForm";
+import LoginPagePaciente from "../components/pacientes/LoginPagePaciente";
+import RegisterPagePaciente from "../components/pacientes/RegisterPagePaciente";
+import Error404 from "../components/common/404";
+import Home from "../components/layout/Home";
+import ParamedicoPage from "../components/paramedicos/ParamedicoPage";
+import LoginPageParamedico from "../components/paramedicos/LoginPageParamedico";
 
 const router = createBrowserRouter([
-    {
-      path: "/login-paciente",
-      element: <LoginForm />,
-    },
-    {
-        path: "/create-paciente",
-        element: <CreatePaciente/>,
-    },
-    {
-        path: "*",
-        element: <h1>404</h1>,
-    }
-  ]);
+  {
+    path: "/",
+    element: <Home  />,
+  },
+  {
+    path: "/pacientes",
+    element: <PacientePage />,
+  },
+  {
+    path: "/login-paciente",
+    element: <LoginPagePaciente />,
+  },
+  {
+    path: "/login",
+    element: <LoginUser />,
+  },
+  {
+    path: "/registro-paciente",
+    element: <RegisterPagePaciente />,
+  },
+  {
+    path: "/admin/paramedicos",
+    element: <ParamedicoPage />,
+  },
+  {
+    path: "/admin/login-paramedico",
+    element: <LoginPageParamedico />,
+
+  },
+  {
+    path: "*",
+    element: <Error404 />,
+  },
+]);
 
 export default router;

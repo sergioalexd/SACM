@@ -1,13 +1,18 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../context/GlobalContext";
-import Profile from "../Profile.jsx";
-import Cita from "../Cita.jsx";
+import { useNavigate } from "react-router-dom";
+import { Api } from "../../services/api";
+import { FaIdCard, FaLock } from "react-icons/fa";
 
 function LoginForm() {
   const [data, setData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(AuthContext);
   const [auth, setAuth] = useState({});
+  // eslint-disable-next-line no-unused-vars
   const [isLogging, setIsLogging] = useState(false);
+
+  const navigate = useNavigate();
 
   const onChangeRut = (e) => {
     const rutInput = e.target.value;
@@ -45,25 +50,22 @@ function LoginForm() {
 
   const handleCick = (e) => {
     if (!data.rut || !data.password) {
-      alert("Debe ingresar usuario y contraseña");
+      document.getElementById("evento").innerHTML ="Debe ingresar usuario y contraseña";
       return;
     }
     e.preventDefault();
     setData(data);
-    fetch("http://localhost:4000/api/v1/pacientes/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    Api.pacientesLogin(data)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
         if (data.status === 200) {
           setAuth(data);
           localStorage.setItem("token", data.token);
           localStorage.setItem("usuario", JSON.stringify(data.paciente));
+          document.getElementById("evento-success").innerHTML ="Paciente logueado correctamente";
+        } else {
+          document.getElementById("evento").innerHTML =
+            data.msg
         }
       })
       .catch((error) => {
@@ -74,22 +76,10 @@ function LoginForm() {
     document.getElementById("inputPassword4").value = "";
   };
 
-  const handleSignOut = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
-    setData({});
-    setAuth({});
-    dispatch({
-      type: "LOGIN_OUT",
-    });
-  };
-
   useEffect(() => {
     if (localStorage.getItem("usuario")) {
       // const usuario = auth.usuario;
       const usuario = JSON.parse(localStorage.getItem("usuario"));
-      console.log("useEffect usuario", usuario);
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: { usuario },
@@ -107,63 +97,68 @@ function LoginForm() {
       setIsLogging(false);
     } else {
       setIsLogging(true);
+      navigate("/pacientes");
     }
-  }, [auth, dispatch]);
+  }, [auth, dispatch, navigate]);
 
   return (
     <>
-      {isLogging ? (
-        <div className="col-12">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </button>
-          <Profile />
-          <Cita />
+      <div className="container-fluid w-100 rounded-5 bg-white">
+        <div className="row">
+          <div className="col-md-12 p-5">
+            <h1 className="text-center">Accede a tu cuenta</h1>
+          </div>
         </div>
-      ) : (
-        <div>
-          <form className="row g-3">
+        <form className="row g-3 p-3">
           <div className="col-12 d-flex">
-              
-              {/* <label htmlFor="inputRut" className="form-label">
-                Rut
-              </label> */}
-              <input
-                type="text"
-                className="form-control"
-                id="inputRut"
-                onChange={onChangeRut}
-                placeholder="Rut"
-                maxLength={12}
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="inputPassword4" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="inputPassword4"
-                onChange={onChangePassword}
-              />
-            </div>
-            <div className="col-12">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleCick}
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+            <FaIdCard
+              style={{
+                color: "blue",
+                fontSize: "20px",
+                marginRight: "5px",
+                alignSelf: "center",
+              }}
+            />
+            <input
+              type="text"
+              className="form-control"
+              id="inputRut"
+              onChange={onChangeRut}
+              placeholder="Rut"
+              maxLength={12}
+            />
+          </div>
+          <div className="col-12 d-flex">
+            <FaLock
+              style={{
+                color: "blue",
+                fontSize: "20px",
+                marginRight: "5px",
+                alignSelf: "center",
+              }}
+            />
+            <input
+              type="password"
+              className="form-control"
+              id="inputPassword4"
+              placeholder="Contraseña"
+              onChange={onChangePassword}
+            />
+          </div>
+          <div className="col-12">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleCick}
+            >
+              Acceder
+            </button>
+          </div>
+          <span className="text-danger text-align-center p-3" id="evento"></span>
+          <span className="text-success text-align-center p-3" id="evento-success"></span>
+        </form>
+       
+      </div>
     </>
   );
 }

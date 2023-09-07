@@ -1,7 +1,6 @@
 import "./App.css";
-import LoginForm from "./components/LoginForm";
 import { UserContextProvider } from "./context/GlobalContext.jsx";
-import RegistroCliente from "./components/pacientes/RegistroCliente.jsx";
+import RegistroCliente from "./components/pacientes/RegistroPacienteForm.jsx";
 
 function App() {
   return (

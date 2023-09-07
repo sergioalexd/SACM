@@ -84,6 +84,7 @@ const editarPaciente = async (req, res) => {
     whatsapp,
     celular,
     telefonoFamiliar,
+    correo
   } = req.body;
 
   const idCheck = await Paciente.findOne({ where: { idPaciente: id } });
@@ -103,6 +104,7 @@ const editarPaciente = async (req, res) => {
       whatsapp: whatsapp,
       celular: celular,
       telefonoFamiliar: telefonoFamiliar,
+      email: correo
     };
 
     if (!idCheck) {
@@ -111,7 +113,9 @@ const editarPaciente = async (req, res) => {
       const pacienteEditado = await Paciente.update(paciente, {
         where: { idPaciente: id },
       });
-      res.status(200).json({ msg: "paciente editado", pacienteEditado, status: 200});
+      const pacienteActualizado = await Paciente.findOne({ where: { idPaciente: id },
+        include: [ FichaMedica ] });
+      res.status(200).json({ msg: "paciente editado", pacienteActualizado, status: 200});
     }
   } catch (error) {
     res.status(500).json({ msg: "Algo salió mal", error, status: 500 });
@@ -128,7 +132,10 @@ const loginPaciente = async (req, res) => {
 
   try {
     const rutFormateado = retonarRut(rut);
-    const paciente = await Paciente.findOne({ where: { rut: rutFormateado } });
+    const paciente = await Paciente.findOne({ where: { rut: rutFormateado },
+      include: [ FichaMedica ]
+    
+    });
 
     if (!paciente) {
       return res.status(400).json({ msg: "El paciente no existe", status: 400 });

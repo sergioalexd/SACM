@@ -72,4 +72,63 @@ const crearParamedico = async (req, res) => {
   }
 };
 
-module.exports = { crearParamedico };
+const getParamedicos = async (req, res) => {
+  try {
+    const paramedicos = await Paramedico.findAll();
+    res.status(200).json({ msg: "paramedicos", paramedicos, status: 200 });
+  } catch (error) {
+    res.status(400).json({ msg: "Algo salió mal", error, status: 400 });
+    console.log("error", { msg: error });
+  }
+};
+
+const loginParamedico = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ msg: "Todos los campos son obligatorios" });
+
+  try {
+    const paramedico = await Paramedico.findOne({ where: { email: email } });
+    if (!paramedico) {
+      return res.status(400).json({
+        status: 400,
+        msg: "Email no está registrado.",
+      });
+    }
+
+    // SI el usuario está activo
+    if (paramedico.status !== "ACTIVE") {
+      return res.status(400).json({
+        status: 400,
+        msg: "Usuario no se encuentra activo. Contacte al administrador.",
+      });
+    }
+
+    // Verificar la contraseña
+    const validPassword = bcrypt.compareSync(password, paramedico.password);
+    if (!validPassword) {
+      return res.status(400).json({
+        status: 400,
+        msg: "Password no es correcto",
+      });
+    }
+    
+    // Generar el JWT
+    const token = await generarJWT(paramedico.idParamedico);
+
+    res.json({
+      status: 200,
+      paramedico,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Hable con el administrador",
+      status: 500,
+    });
+  }
+};
+
+
+module.exports = { crearParamedico, getParamedicos, loginParamedico };

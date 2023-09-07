@@ -2,9 +2,11 @@ import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/GlobalContext.jsx";
 import Profile from "./Profile.jsx";
 import Cita from "./Cita.jsx";
+import { Api } from "../services/api.js";
 
-function LoginForm() {
+function LoginUser() {
   const [data, setData] = useState([]);
+  //eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(AuthContext);
   const [auth, setAuth] = useState({});
   const [isLogging, setIsLogging] = useState(false);
@@ -27,13 +29,7 @@ function LoginForm() {
     }
     e.preventDefault();
     setData(data);
-    fetch("http://192.168.1.87:8080/api/v1/usuarios/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    Api.loginUser(data)
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
@@ -142,4 +138,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default LoginUser;

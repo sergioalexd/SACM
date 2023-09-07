@@ -23,6 +23,33 @@ const getCitas = async (req, res) => {
   }
 };
 
+//get horas de citas libres
+
+const getHorasCitas = async (req, res) => {
+  try {
+    const citas = await Cita.findAll(
+      {
+        where: {
+          fecha: req.body.fecha,
+          hora: ""
+        }
+      }
+    );
+    res.json({
+      ok: true,
+      citas,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al obtener las citas medicas",
+      status: 500,
+    });
+  }
+};
+
+
 const crearCita = async (req, res = response) => {
   const { fecha, hora, idPaciente, idParamedico, idFichaMedica } = req.body;
 
@@ -77,4 +104,31 @@ const crearCita = async (req, res = response) => {
   }
 };
 
-module.exports = { getCitas, crearCita };
+//obtener citas por id de paciente
+const getCitasByIdPaciente = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const citas = await Cita.findAll(
+      {
+        where: {
+          idPaciente: id
+        },
+        include: [ Atencion, Paramedico ]
+      }
+    );
+    res.json({
+      ok: true,
+      citas,
+      status: 200
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al obtener las citas medicas",
+      status: 500,
+    });
+  }
+};
+
+module.exports = { getCitas, crearCita, getCitasByIdPaciente, getHorasCitas };

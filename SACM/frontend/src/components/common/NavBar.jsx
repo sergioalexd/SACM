@@ -1,0 +1,91 @@
+// crear navbar con cuatro botones: inicio, ficha clinica, pacientes, nosotros alineados a la derecha
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import SignOut from "./SignOut";
+
+const NavBar = () => {
+  const [isLogged, setIsLogged] = useState(false);
+
+  useEffect(() => {
+    const usuarioLog = localStorage.getItem("token");
+    if (!usuarioLog) {
+      setIsLogged(false);
+    } else {
+      setIsLogged(true);
+    }
+  }, [isLogged]);
+
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg navbar-light bg-transparent fw-semibold text-light">
+        <div className="container-fluid">
+            <Link className="navbar-brand text-white" to="/">Centro Médico</Link>
+          <button
+            className="navbar-toggler text-white"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            style={{ color: "white" }}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul className="navbar-nav mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/"
+                  style={{ color: "white" }}
+                >
+                  Inicio
+                </Link>
+                {/* <a className="nav-link active" aria-current="page" href="#">
+                  Inicio
+                </a> */}
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" style={{ color: "white" }}>
+                  Ficha Clínica
+                </a>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/pacientes"
+                  style={{ color: "white" }}
+                >
+                  Pacientes
+                </Link>
+                {/* <a className="nav-link" href="#">
+                  Pacientes
+                </a> */}
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" style={{ color: "white" }}>
+                  Nosotros
+                </a>
+              </li>
+            </ul>
+            <div className="d-flex">
+                <ul className="navbar-nav mb-2 mb-lg-0">
+            <li className="nav-item">{isLogged ? <SignOut /> : <Link 
+            className="nav-link active fw-bold text-info text-decoration-none"
+            
+            to="/login-paciente"> Iniciar sesión </Link> }</li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default NavBar;
