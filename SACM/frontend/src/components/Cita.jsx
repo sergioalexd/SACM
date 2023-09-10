@@ -168,7 +168,7 @@ function Cita() {
                 <option defaultValue>Seleccione un Paramédico</option>
                 {paramedicos.map((paramedico, index) => (
                   <option key={index} value={paramedico.idParamedico}>
-                    {paramedico.name}
+                    {paramedico.name} {paramedico.lastName}
                   </option>
                 ))}
               </select>
