@@ -150,17 +150,13 @@ function Cita() {
               />
               <datalist id="horacita">
                 <option value="08:00" />
-                <option value="09:00" />
-                <option value="10:00" />
+                <option value="09:30" />
                 <option value="11:00" />
-                <option value="12:00" />
-                <option value="13:00" />
+                <option value="12:30" />
                 <option value="14:00" />
-                <option value="15:00" />
-                <option value="16:00" />
+                <option value="15:30" />
                 <option value="17:00" />
-                <option value="18:00" />
-                <option value="19:00" />
+                <option value="18:30" />
                 <option value="20:00" />
               </datalist>
             </div>
