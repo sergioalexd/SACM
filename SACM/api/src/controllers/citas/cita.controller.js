@@ -5,16 +5,18 @@ const {
   Paciente,
   Paramedico,
   Atencion,
+  FichaMedica,
 } = require("../../database/conexion.js");
 
 const getCitas = async (req, res) => {
   try {
     const citas = await Cita.findAll({
-      include: [Atencion],
+      include: [{ model: Atencion, include: { model: FichaMedica, include: [Paciente] } }],
     });
     res.json({
       ok: true,
       citas,
+      status: 200,
     });
   } catch (error) {
     console.log(error);

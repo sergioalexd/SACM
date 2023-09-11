@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Api } from "../../services/api";
 
-function SearchPaciente() {
-  const [pacientes, setPacientes] = useState([]);
+function SearchCitas() {
+  const [citas, setCitas] = useState([]);
   const [nombre, setNombre] = useState("");
 
     const handleSearch = (e) => {
@@ -18,11 +18,11 @@ function SearchPaciente() {
       if (!usuario || !token) {
         return;
       }
-      Api.getAllPacientes(token)
+      Api.getAllCitas(token)
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {
-            setPacientes(data.pacientes);
+            setCitas(data.citas);
           } else {
             alert(data.msg);
           }
@@ -35,7 +35,7 @@ function SearchPaciente() {
     const handleClick = (e) => {
         e.preventDefault();
         if (!nombre) {
-            alert("Debe ingresar un nombre");
+            alert("Debe ingresar un dato para buscar");
             return;
         }
     const token = localStorage.getItem("token");
@@ -43,11 +43,11 @@ function SearchPaciente() {
         return;
     }
 
-    Api.getPacientesByNames(nombre, token)
+    Api.getCitasByNames(nombre, token)
         .then((response) => response.json())
         .then((data) => {
         if (data.status === 200) {
-            setPacientes(data.pacientes);
+            setCitas(data.citas);
             document.getElementById("inputNombre").value = "";
         } else {
             alert(data.msg);
@@ -67,11 +67,11 @@ function SearchPaciente() {
     if (!usuario || !token) {
       return;
     }
-    Api.getAllPacientes(token)
+    Api.getAllCitas(token)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === 200) {
-          setPacientes(data.pacientes);
+          setCitas(data.citas);
         } else {
           alert(data.msg);
         }
@@ -91,7 +91,7 @@ function SearchPaciente() {
                 type="text"
                 className="form-control"
                 id="inputNombre"
-                placeholder="Nombre del paciente"
+                placeholder="Busca una cita"
                 onChange={handleSearch}
               />
             </div>
@@ -106,17 +106,13 @@ function SearchPaciente() {
             </button>
           </div>
           <div className="col-md-12">
-            {pacientes
-              ? pacientes.map((paciente) => (
-                  <div key={paciente.idPaciente} className="card my-3">
+            {citas
+              ? citas.map((cita) => (
+                  <div key={cita.idCita} className="card my-3">
                     <div className="card-body">
-                      <h5 className="card-title">
-                        {paciente.name} {paciente.lastName}
-                      </h5>
-                        <p className="card-text">Rut: {paciente.rut}</p>
-                        <p className="card-text">Correo: {paciente.email}</p>
-                        <p className="card-text">Telefono: {paciente.telefono}</p>
-                        <p className="card-text">Comuna: {paciente.comuna}</p>
+                        <h5 className="card-text">Fecha: {cita.fecha}</h5>
+                        <p className="card-text">Hora: {cita.hora}</p>
+                        <p className="card-text">Status: {cita.status}</p>
                     </div>
                   </div>
                 ))
@@ -128,4 +124,4 @@ function SearchPaciente() {
   );
 }
 
-export default SearchPaciente;
+export default SearchCitas;

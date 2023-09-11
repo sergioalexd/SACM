@@ -147,4 +147,82 @@ export class Api {
         return response;
     }
 
+    static async getAllCitas(token) {
+        const response = await fetch(url + "/citas",
+        {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async inhabilitarParamedico(id, token) {
+        const response = await fetch(url + "/paramedicos/inhabilitar/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async habilitarParamedico(id, token) {
+        const response = await fetch(url + "/paramedicos/habilitar/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async deleteParamedico(id, token) {
+        const response = await fetch(url + "/paramedicos/delete/" + id,
+        {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async registerParamedico(data) {
+        const response = await fetch(url + "/paramedicos/",
+        {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }
+        );
+        return response;
+    }
+
+    static async getParamedicosByNames(names, token) {
+        const response = await fetch(url + "/paramedicos/bynames/" + names,
+        {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
 }

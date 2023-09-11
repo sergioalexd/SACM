@@ -8,6 +8,9 @@ import Home from "../components/layout/Home";
 import ParamedicoPage from "../components/paramedicos/ParamedicoPage";
 import LoginPageParamedico from "../components/paramedicos/LoginPageParamedico";
 import { ProtectedRoute } from "../components/common/ProtectedRoute";
+import { ProtectedRouteAdmin } from "../components/common/ProtectedRouteAdmin";
+import RestringidoPage from "../components/restringido/RestringidoPage";
+import LoginFormAdmin from "../components/restringido/LoginFormAdmin";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +52,21 @@ const router = createBrowserRouter([
     path: "*",
     element: <Error404 />,
   },
+  {
+    element: <ProtectedRouteAdmin admin={
+      JSON.parse(localStorage.getItem("usuario")) ? JSON.parse(localStorage.getItem("usuario"))?.idUser : false
+    } />,
+    children: [
+      {
+        path: "/admin/restringido",
+        element: <RestringidoPage />,
+      },
+    ],
+  },
+  {
+    path: "/admin/restringido/login",
+    element: <LoginFormAdmin />,
+  }
 ]);
 
 export default router;

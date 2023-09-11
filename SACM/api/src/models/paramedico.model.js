@@ -51,11 +51,11 @@ module.exports = (sequelize) => {
     },
     whatsapp: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     celular: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     status: {
       type: DataTypes.ENUM("ACTIVE", "BLOCK", "DELETE", "PENDING"),

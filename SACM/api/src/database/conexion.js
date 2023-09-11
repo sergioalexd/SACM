@@ -39,7 +39,9 @@ dbConnection.models = Object.fromEntries(capsEntries);
 const { User, Paciente, Paramedico, FichaMedica, Cita, ParamedicoPaciente, Atencion } = dbConnection.models;
 
     Paciente.hasOne(FichaMedica, { foreignKey: "idPaciente" });
+    FichaMedica.belongsTo(Paciente, { foreignKey: "idPaciente" });
     FichaMedica.hasMany(Atencion, { foreignKey: "idFichaMedica" });
+    Atencion.hasOne(FichaMedica, { foreignKey: "idFichaMedica" });
     Paramedico.hasMany(Cita, { foreignKey: "idParamedico" });
     Cita.hasOne(Paramedico, { foreignKey: "idParamedico" });
     Paciente.hasMany(Cita, { foreignKey: "idPaciente" });

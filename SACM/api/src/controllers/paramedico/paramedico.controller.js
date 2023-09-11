@@ -28,9 +28,7 @@ const crearParamedico = async (req, res) => {
     !address ||
     !comuna ||
     !region ||
-    !telefono ||
-    !whatsapp ||
-    !celular
+    !telefono 
   )
     return res.status(400).json({ msg: "Todos los campos son obligatorios" });
      if(!validarRut(rut)){
@@ -62,7 +60,7 @@ const crearParamedico = async (req, res) => {
 
       const token = await generarJWT(newParamedico.idParamedico);
 
-      res.status(200).json({ msg: "paramedico registrado", newParamedico, token });
+      res.status(200).json({ msg: "paramedico registrado", newParamedico, token, status: 200 });
     } else {
       res.status(400).json({ msg: "El correo o rut ya esta registrado" });
     }
@@ -154,5 +152,100 @@ const getCitasParamedico = async (req, res) => {
   }
 };
 
+// inhabilitar paramedico
+const inhabilitarParamedico = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const paramedico = await Paramedico.findOne({ where: { idParamedico: id } });
+    if (!paramedico) {
+      return res.status(400).json({
+        status: 400,
+        msg: "El paramedico no existe",
+      });
+    }
+    paramedico.status = "BLOCK";
+    await paramedico.save();
+    res.json({
+      status: 200,
+      ok: true,
+      msg: "Paramedico inhabilitado",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al inhabilitar el paramedico",
+    });
+  }
+};
 
-module.exports = { crearParamedico, getParamedicos, loginParamedico, getCitasParamedico };
+const habilitarParamedico = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const paramedico = await Paramedico.findOne({ where: { idParamedico: id } });
+    if (!paramedico) {
+      return res.status(400).json({
+        status: 400,
+        msg: "El paramedico no existe",
+      });
+    }
+    paramedico.status = "ACTIVE";
+    await paramedico.save();
+    res.json({
+      status: 200,
+      ok: true,
+      msg: "Paramedico habilitado",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al habilitar el paramedico",
+      status: 500,
+    });
+  }
+};
+
+const deleteParamedico = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const paramedico = await Paramedico.findOne({ where: { idParamedico: id } });
+    if (!paramedico) {
+      return res.status(400).json({
+        status: 400,
+        msg: "El paramedico no existe",
+      });
+    }
+    await paramedico.destroy();
+    res.json({
+      status: 200,
+      ok: true,
+      msg: "Paramedico eliminado",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al eliminar el paramedico",
+    });
+  }
+};
+
+const getParamedicoByNames = async (req, res) => {
+  const { names } = req.params;
+  try {
+    const paramedicos = await Paramedico.findAll(
+      {
+        where: {
+          name: names,
+        }, 
+      }
+    );
+    res.status(200).json({ msg: "Pacientes obtenidos", paramedicos, status: 200 });
+  } catch (error) {
+    res.status(500).json({ msg: "Algo salió mal", error, status: 500 });
+    console.log("error", { msg: error });
+  }
+}
+
+module.exports = { crearParamedico, getParamedicos, loginParamedico, getCitasParamedico, inhabilitarParamedico, habilitarParamedico, deleteParamedico, getParamedicoByNames };
