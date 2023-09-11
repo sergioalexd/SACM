@@ -114,8 +114,8 @@ function SearchPaciente() {
                         {paciente.name} {paciente.lastName}
                       </h5>
                         <p className="card-text">Rut: {paciente.rut}</p>
-                        <p className="card-text">Correo: {paciente.email}</p>
                         <p className="card-text">Telefono: {paciente.telefono}</p>
+                        <p className="card-text">Dirección: {paciente.address}</p>
                         <p className="card-text">Comuna: {paciente.comuna}</p>
                     </div>
                   </div>

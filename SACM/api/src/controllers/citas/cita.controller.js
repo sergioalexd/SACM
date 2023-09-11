@@ -75,7 +75,7 @@ const crearCita = async (req, res = response) => {
     if (citaExistente) {
       return res
         .status(400)
-        .json({ mensaje: "La cita ya está reservada", status: 400 });
+        .json({ msg: "Ese horario ya fue agendado, por favor seleccione otro horario.", status: 400 });
     }
     const cita = await Cita.create({
       fecha,

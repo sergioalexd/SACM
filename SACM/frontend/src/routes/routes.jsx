@@ -10,7 +10,7 @@ import LoginPageParamedico from "../components/paramedicos/LoginPageParamedico";
 import { ProtectedRoute } from "../components/common/ProtectedRoute";
 import { ProtectedRouteAdmin } from "../components/common/ProtectedRouteAdmin";
 import RestringidoPage from "../components/restringido/RestringidoPage";
-import LoginFormAdmin from "../components/restringido/LoginFormAdmin";
+import LoginPageAdmin from "../components/restringido/LoginPageAdmin";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin/restringido/login",
-    element: <LoginFormAdmin />,
+    element: <LoginPageAdmin />,
   }
 ]);
 

@@ -49,13 +49,13 @@ function GetCitasById() {
             </div>
             <div className="col-12">
               {citas.length > 0 ? (
-                citas.slice(0,3).map((cita) => (
+                citas.slice(0,3).map((cita, index) => (
                   <div className="card my-3 text-black" key={cita.idCita}>
                     <div className="card-body">
-                      <h5 className="card-text">Fecha: {cita.fecha}</h5>
+                      <h5 className="card-title">Cita N° {index + 1}</h5>
+                      <p className="card-text">Fecha: {cita.fecha}</p>
                       <p className="card-text">Hora: {cita.hora}</p>
                       <p className="card-text">Estado: {cita.status}</p>
-                      <p className="card-text">Descripción: {cita.Atencion.descripcion}</p>
                     </div>
                   </div>
                 ))

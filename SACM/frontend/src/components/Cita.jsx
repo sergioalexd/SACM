@@ -25,9 +25,12 @@ function Cita() {
     setData({ ...data, idParamedico });
   };
 
-
   const deleteData = () => {
-    setData({});
+    if (isLogging && state.state.user.usuario.FichaMedica) {
+      const idPaciente = state.state.user.usuario.idPaciente;
+      const idFichaMedica = state.state.user.usuario.FichaMedica.idFichaMedica;
+      setData({ ...data, idPaciente, idFichaMedica });
+    }
     // limpiar los inputs del formulario
     const inputs = document.querySelectorAll("input");
     inputs.forEach((input) => {
@@ -37,21 +40,22 @@ function Cita() {
     const selects = document.querySelectorAll("select");
     selects.forEach((select) => {
       select.value = "";
-    }
-    );
+    });
   };
 
   const handleCick = (e) => {
     e.preventDefault();
 
     if (!data.fecha || !data.hora || !data.idParamedico) {
-      document.getElementById("mensajeerrorcita").innerHTML = "Debe ingresar todos los  campos";
+      document.getElementById("mensajeerrorcita").innerHTML =
+        "Debe ingresar todos los  campos";
       return;
     }
 
     if (!token) {
       document.getElementById("mensajecita").innerHTML = "";
-      document.getElementById("mensajeerrorcita").innerHTML = "Debe iniciar sesión para avanzar con la creación de la cita";
+      document.getElementById("mensajeerrorcita").innerHTML =
+        "Debe iniciar sesión para avanzar con la creación de la cita";
       return;
     }
 
@@ -63,11 +67,18 @@ function Cita() {
           deleteData();
           document.getElementById("mensajeerrorcita").innerHTML = "";
           document.getElementById("mensajecita").innerHTML =
-          "Cita creada correctamente.";
+            "Cita creada correctamente.";
         } else {
           document.getElementById("mensajecita").innerHTML = "";
-          document.getElementById("mensajeerrorcita").innerHTML =
-            data.msg;
+          document.getElementById("mensajeerrorcita").innerHTML = data.msg;
+          if (isLogging && state.state.user.usuario.FichaMedica) {
+            const idPaciente = state.state.user.usuario.idPaciente;
+            const idFichaMedica = state.state.user.usuario.FichaMedica.idFichaMedica;
+            setData({ ...data, idPaciente, idFichaMedica });
+          }
+          document.getElementById("inputFecha").value = "";
+          document.getElementById("inputFHora").value = "";
+          document.getElementById("inputParamedico").value = "";          
         }
       })
       .catch((error) => {
@@ -128,8 +139,7 @@ function Cita() {
       >
         <form>
           <div className="row">
-            <div className="col-12">
-            </div>
+            <div className="col-12"></div>
             <div className="col-md-12">
               <label className="form-label" htmlFor="inputFecha">
                 Fecha
@@ -166,9 +176,13 @@ function Cita() {
             </div>
             <div className="col-md-12">
               <label htmlFor="inputParamedico" className="form-label">
-               Paramédico
+                Paramédico
               </label>
-              <select className="form-select" onChange={onChangeParamedico} id="inputParamedico">
+              <select
+                className="form-select"
+                onChange={onChangeParamedico}
+                id="inputParamedico"
+              >
                 <option defaultValue>Seleccione un Paramédico</option>
                 {paramedicos.map((paramedico, index) => (
                   <option key={index} value={paramedico.idParamedico}>
