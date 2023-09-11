@@ -63,7 +63,11 @@ function Cita() {
           deleteData();
           document.getElementById("mensajeerrorcita").innerHTML = "";
           document.getElementById("mensajecita").innerHTML =
-          "Cita creada correctamente: " + data.cita.idCita.slice(0, 8);
+          "Cita creada correctamente.";
+        } else {
+          document.getElementById("mensajecita").innerHTML = "";
+          document.getElementById("mensajeerrorcita").innerHTML =
+            data.msg;
         }
       })
       .catch((error) => {

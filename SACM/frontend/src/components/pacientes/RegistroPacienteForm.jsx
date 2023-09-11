@@ -168,7 +168,7 @@ function RegistroPacienteForm() {
         if (data.status === 200) {
           setAuth(data);
           localStorage.setItem("token", data.token);
-          localStorage.setItem("usuario", JSON.stringify(data.newPaciente));
+          localStorage.setItem("usuario", JSON.stringify(data.pacienteLog));
         } else {
           setData({});
           alert("Error en el registro: " + data.msg);

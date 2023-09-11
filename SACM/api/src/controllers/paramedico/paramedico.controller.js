@@ -1,5 +1,5 @@
 
-const {Paramedico} = require("../../database/conexion.js");
+const {Paramedico, Cita, Atencion} = require("../../database/conexion.js");
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../../services/generar-jwt");
 const {validarRut} = require("../../services/validar-rut"); 
@@ -130,5 +130,29 @@ const loginParamedico = async (req, res) => {
   }
 };
 
+//get citas por paramedico
 
-module.exports = { crearParamedico, getParamedicos, loginParamedico };
+const getCitasParamedico = async (req, res) => {
+  try {
+    const citas = await Cita.findAll({
+      where: {
+        idParamedico: req.params.id,
+      },
+      include: [Atencion]
+    });
+    res.json({
+      status: 200,
+      ok: true,
+      citas,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al obtener las citas",
+    });
+  }
+};
+
+
+module.exports = { crearParamedico, getParamedicos, loginParamedico, getCitasParamedico };

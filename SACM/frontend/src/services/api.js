@@ -134,4 +134,17 @@ export class Api {
         return response;
     }
 
+    static async getCitasByParamedico(id, token) {
+        const response = await fetch(url + "/paramedicos/citas/" + id,
+        {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
 }

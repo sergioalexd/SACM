@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../common/NavBar";
 import SignOut from "../common/SignOut";
-import GetCitasById from "./GetCitasById";
+import GetCitasByIdParamedico from "./GetCitasByIdParamedico";
 import Footer from "../common/Footer";
 import PerfilParamedico from "./PerfilParamedico";
 import UpdateDataParamedico from "./UpdateDataParamedico";
@@ -21,6 +21,10 @@ function ParamedicoPage() {
       setIsLogging(true);
     }
   }, [isLogin, navigate]);
+
+
+
+
   return (
     <div className="container-fluid" style={{ backgroundColor: "#d4dadf" }}>
       <div className="row">
@@ -45,7 +49,7 @@ function ParamedicoPage() {
           </div>
           <div className="row my-3">
             <div className="col-12">
-              <GetCitasById />
+              <GetCitasByIdParamedico />
             </div>
           </div>
           <div className="row my-3">

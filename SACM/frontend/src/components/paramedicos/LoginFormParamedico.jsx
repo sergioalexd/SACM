@@ -67,7 +67,8 @@ function LoginFormParamedico() {
           setAuth(data);
           localStorage.setItem("token", data.token);
           localStorage.setItem("usuario", JSON.stringify(data.paramedico));
-          document.getElementById("evento-success").innerHTML ="Paciente logueado correctamente";
+          document.getElementById("evento-success").innerHTML ="Paramédico logueado correctamente";
+          window.location.reload();
         } else {
           document.getElementById("evento").innerHTML =
             data.msg
@@ -96,6 +97,9 @@ function LoginFormParamedico() {
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
     }
+  }, [auth, dispatch, navigate]);
+
+  useEffect(() => {
     const usuarioLog = localStorage.getItem("usuario");
 
     if (!usuarioLog) {
@@ -104,7 +108,7 @@ function LoginFormParamedico() {
       setIsLogging(true);
       navigate("/admin/paramedicos");
     }
-  }, [auth, dispatch, navigate]);
+  }, [isLogging, navigate]);
 
   return (
     <>

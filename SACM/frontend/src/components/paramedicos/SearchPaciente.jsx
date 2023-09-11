@@ -9,12 +9,40 @@ function SearchPaciente() {
     setNombre(e.target.value);
     }
 
+
+    const handleClean = (e) => {
+      e.preventDefault();
+      setNombre("");
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const token = localStorage.getItem("token");
+      if (!usuario || !token) {
+        return;
+      }
+      Api.getAllPacientes(token)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === 200) {
+            setPacientes(data.pacientes);
+          } else {
+            alert(data.msg);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
+
     const handleClick = (e) => {
         e.preventDefault();
+        if (!nombre) {
+            alert("Debe ingresar un nombre");
+            return;
+        }
     const token = localStorage.getItem("token");
     if (!token) {
         return;
     }
+
     Api.getPacientesByNames(nombre, token)
         .then((response) => response.json())
         .then((data) => {
@@ -57,7 +85,7 @@ function SearchPaciente() {
     <div className="container-fluid">
       <div className="row">
         <div className="col-12">
-          <h1>Buscar Paciente</h1>
+          <h4>Buscar Paciente</h4>
           <form className="row g-3">
             <div className="col-md-12 d-flex">
               <input
@@ -69,9 +97,13 @@ function SearchPaciente() {
               />
             </div>
           </form>
-          <div className="col-md-12">
+
+          <div className="col-md-12 d-flex my-3">
             <button type="button" className="btn btn-primary" onClick={handleClick}>
               Buscar
+            </button>
+            <button type="button" className="btn btn-danger mx-3" onClick={handleClean}>
+              Limpiar
             </button>
           </div>
           <div className="col-md-12">

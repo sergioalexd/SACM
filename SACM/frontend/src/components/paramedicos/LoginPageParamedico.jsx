@@ -3,8 +3,7 @@ import LoginFormParamedico from "./LoginFormParamedico";
 import { useNavigate } from "react-router-dom";
 
 function LoginPageParamedico() {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="container-fluid" style={{ backgroundColor: "#d4dadf" }}>
       <div className="row">
@@ -18,7 +17,10 @@ function LoginPageParamedico() {
           style={{ width: "400px", margin: "auto" }}
         >
           <LoginFormParamedico />
-          <div className="row my-3" style={{ width: "33%", margin: "auto", textAlign:"center" }}>
+          <div
+            className="row my-3"
+            style={{ width: "33%", margin: "auto", textAlign: "center" }}
+          >
             <p>¿Llegaste acá por error?</p>
             <button
               className="btn btn-sm btn-primary"
