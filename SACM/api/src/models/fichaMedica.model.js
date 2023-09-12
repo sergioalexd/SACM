@@ -13,9 +13,9 @@ module.exports = (sequelize) => {
             primaryKey: true,
     },
     status: {
-      type: DataTypes.ENUM("ACTIVE", "BLOCK", "DELETE", "PENDING"),
+      type: DataTypes.ENUM("Activa", "Eliminada", "Bloqueda", "Pendiente"),
       allowNull: false,
-      defaultValue: "ACTIVE",
+      defaultValue: "Activa",
     },
   },
   {

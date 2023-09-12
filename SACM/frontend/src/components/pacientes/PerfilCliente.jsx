@@ -62,7 +62,7 @@ function PerfilCliente() {
                       </p>
                     </td>
                     <td className="fs-6">
-                      <p>{profile.email}</p>
+                      <p>&nbsp;{profile.email}</p>
                     </td>
                   </tr>
                 </tbody>
@@ -73,13 +73,7 @@ function PerfilCliente() {
                   <p>
                     <strong>Dirección</strong>
                   </p>
-                  <p>{profile.address}</p>                                  
-                </div>
-                <div className="col-12">
-                  <p>
-                    <strong>Comuna</strong>
-                  </p>
-                  <p>{profile.comuna}</p>                                  
+                  <p>{profile.address}, {profile.comuna}</p>                                  
                 </div>
               </div>
             </div>

@@ -68,6 +68,7 @@ function Cita() {
           document.getElementById("mensajeerrorcita").innerHTML = "";
           document.getElementById("mensajecita").innerHTML =
             "Cita creada correctamente.";
+          window.location.reload();
         } else {
           document.getElementById("mensajecita").innerHTML = "";
           document.getElementById("mensajeerrorcita").innerHTML = data.msg;

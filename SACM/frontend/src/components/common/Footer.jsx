@@ -14,9 +14,11 @@ function Footer() {
       usuario,
       "idParamedico"
     );
+
     switch (tipoUsuario) {
       case true:
         setTipoUsuario("paramedico");
+        
         break;
       case false:
         setTipoUsuario("paciente");
@@ -25,6 +27,7 @@ function Footer() {
         setTipoUsuario("paramedico");
         break;
     }
+
   }, [tipoUsuario]);
 
   return (
@@ -42,18 +45,28 @@ function Footer() {
             <p>
               <a href="tel:+56912345678">+56912345678</a>
             </p>
-            {tipoUsuario === "paramedico" ? null : (
+            {tipoUsuario === "paciente" ? null : (
               <p>
                 <Link to="/admin/login-paramedico">
                   Iniciar sesión paramédico
                 </Link>
               </p>
             )}
-            <p>
-              <Link to="/admin/restringido">
-                Administrador
-              </Link>
-            </p>
+            {!tipoUsuario || tipoUsuario === "paciente" ? (
+             <p>
+             <Link to="/admin/login-paramedico">
+               Iniciar sesión paramédico
+             </Link>
+           </p>
+            ) : null }
+            {
+             !tipoUsuario ? null : (
+              <p>
+                <p>
+                  <Link to="/admin/restringido">Administrador</Link>
+                </p>
+              </p>
+            )}
           </div>
           <div className="col-md-3">
             <h3>Comunidad</h3>

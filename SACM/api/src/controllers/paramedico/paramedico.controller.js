@@ -95,7 +95,7 @@ const loginParamedico = async (req, res) => {
     }
 
     // SI el usuario está activo
-    if (paramedico.status !== "ACTIVE") {
+    if (paramedico.status !== "Activo") {
       return res.status(400).json({
         status: 400,
         msg: "Usuario no se encuentra activo. Contacte al administrador.",
@@ -163,7 +163,7 @@ const inhabilitarParamedico = async (req, res) => {
         msg: "El paramedico no existe",
       });
     }
-    paramedico.status = "BLOCK";
+    paramedico.status = "Bloqueado";
     await paramedico.save();
     res.json({
       status: 200,
@@ -189,7 +189,7 @@ const habilitarParamedico = async (req, res) => {
         msg: "El paramedico no existe",
       });
     }
-    paramedico.status = "ACTIVE";
+    paramedico.status = "Activo";
     await paramedico.save();
     res.json({
       status: 200,
@@ -216,7 +216,8 @@ const deleteParamedico = async (req, res) => {
         msg: "El paramedico no existe",
       });
     }
-    await paramedico.destroy();
+    paramedico.status = "Eliminado";
+    await paramedico.save();
     res.json({
       status: 200,
       ok: true,

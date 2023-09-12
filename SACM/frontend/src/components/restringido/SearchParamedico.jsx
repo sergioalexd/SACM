@@ -139,10 +139,6 @@ function SearchParamedico() {
       }
     };
 
-
-
-
-
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const token = localStorage.getItem("token");
@@ -204,7 +200,9 @@ function SearchParamedico() {
           <div className="col-md-12">
             {paramedicos
               ? paramedicos.map((paramedico) => (
-                  <div key={paramedico.idParamedico} className="card my-3">
+                  <div key={paramedico.idParamedico} className="card my-3"
+                  style={paramedico.status === "Eliminado" ? { backgroundColor: "#c9747483" } : null}
+                  >
                     <div className="card-body">
                       <h5 className="card-title">
                         {paramedico.name} {paramedico.lastName}
@@ -217,13 +215,13 @@ function SearchParamedico() {
                     </div>
                     <div className="card-footer d-flex">
                       {
-                        paramedico.status !== "ACTIVE" ? (
-                          <button type="button" className="btn btn-sm btn-success" value={paramedico.idParamedico} onClick={habilitarParamedico}>
-                            Habilitar paramedico
+                        paramedico.status !== "Activo" ? (
+                          <button type="button" className="btn btn-sm btn-primary" value={paramedico.idParamedico} onClick={habilitarParamedico}>
+                            Modificar
                           </button>
                         ) : (
                           <button type="button" className="btn btn-sm btn-danger" value={paramedico.idParamedico} onClick={inhabilitarParamedico}>
-                          Inhabilitar paramedico
+                         Dar de baja
                         </button>
                         )
                       }

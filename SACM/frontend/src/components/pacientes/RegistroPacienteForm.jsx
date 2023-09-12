@@ -24,50 +24,18 @@ function RegistroPacienteForm() {
 
   const regionesData = {
     regiones: [
-      
       {
         region: "Valparaíso",
         comunas: [
           "Valparaíso",
           "Casablanca",
           "Concón",
-          "Juan Fernández",
-          "Puchuncaví",
           "Quintero",
           "Viña del Mar",
-          "Isla de Pascua",
-          "Los Andes",
-          "Calle Larga",
-          "Rinconada",
-          "San Esteban",
-          "La Ligua",
-          "Cabildo",
-          "Papudo",
-          "Petorca",
-          "Zapallar",
-          "Quillota",
-          "Calera",
-          "Hijuelas",
-          "La Cruz",
-          "Nogales",
-          "San Antonio",
-          "Algarrobo",
-          "Cartagena",
-          "El Quisco",
-          "El Tabo",
-          "Santo Domingo",
-          "San Felipe",
-          "Catemu",
-          "Llaillay",
-          "Panquehue",
-          "Putaendo",
-          "Santa María",
           "Quilpué",
-          "Limache",
-          "Olmué",
           "Villa Alemana",
         ],
-      }
+      },
     ],
   };
 
@@ -187,7 +155,7 @@ function RegistroPacienteForm() {
     document.getElementById("inputRegion").value = "Regiones";
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (localStorage.getItem("usuario")) {
       // const usuario = auth.usuario;
       const usuario = JSON.parse(localStorage.getItem("usuario"));
