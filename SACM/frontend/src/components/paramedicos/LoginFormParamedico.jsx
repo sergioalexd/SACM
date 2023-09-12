@@ -115,7 +115,7 @@ function LoginFormParamedico() {
       <div className="container-fluid w-100 rounded-5 bg-white">
         <div className="row">
           <div className="col-md-12 p-5">
-            <h1 className="text-center">Accede a tu cuenta</h1>
+            <h1 className="text-center">Accede a tu cuenta de paramédico</h1>
           </div>
         </div>
         <form className="row g-3 p-3">

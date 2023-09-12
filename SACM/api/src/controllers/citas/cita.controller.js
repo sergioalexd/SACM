@@ -11,8 +11,10 @@ const {
 const getCitas = async (req, res) => {
   try {
     const citas = await Cita.findAll({
-      include: [{ model: Atencion, include: { model: FichaMedica, include: [Paciente] } }],
+      attributes: ['fecha', 'hora', 'status'],
+      include: Paciente
     });
+    console.log(citas);
     res.json({
       ok: true,
       citas,
