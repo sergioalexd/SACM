@@ -113,6 +113,8 @@ function SearchCitas() {
                         <h5 className="card-text">Fecha: {cita.fecha}</h5>
                         <p className="card-text">Hora: {cita.hora}</p>
                         <p className="card-text">Status: {cita.status}</p>
+                        <p className="card-text">Paciente: {cita.Paciente.name} {cita.Paciente.lastName}</p>
+                        <p className="card-text">Paramédico: {cita.Paramedico.name} {cita.Paramedico.lastName}</p>
                     </div>
                   </div>
                 ))

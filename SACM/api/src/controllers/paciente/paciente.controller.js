@@ -1,4 +1,4 @@
-const { Paciente, FichaMedica } = require("../../database/conexion.js"); // sequalize
+const { Paciente, FichaMedica, Paramedico } = require("../../database/conexion.js"); // sequalize
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../../services/generar-jwt");
 const { validarRut, retonarRut } = require("../../services/validar-rut");
@@ -179,7 +179,7 @@ const getPacientesByNames = async (req, res) => {
       where: {
         name: names
       },
-      include: [ FichaMedica ]
+      include: [ Paramedico ]
     });
     res.status(200).json({ msg: "Pacientes obtenidos", pacientes, status: 200 });
   } catch (error) {
