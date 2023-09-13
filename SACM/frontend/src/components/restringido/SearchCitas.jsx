@@ -4,6 +4,7 @@ import { Api } from "../../services/api";
 function SearchCitas() {
   const [citas, setCitas] = useState([]);
   const [id, setId] = useState("");
+  const [paramedicos, setParamedicos] = useState([{}]);
 
     const handleSearch = (e) => {
       console.log(e.target.value);
@@ -14,6 +15,7 @@ function SearchCitas() {
     const handleClean = (e) => {
       e.preventDefault();
       setId("");
+      document.getElementById("inputNombre").value = "";
       const usuario = JSON.parse(localStorage.getItem("usuario"));
       const token = localStorage.getItem("token");
       if (!usuario || !token) {
@@ -83,6 +85,20 @@ function SearchCitas() {
       });
   }, []);
 
+  useEffect(() => {
+    Api.getParamedicos()
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 200) {
+          setParamedicos(data.paramedicos);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  , []);
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -95,11 +111,11 @@ function SearchCitas() {
             className="form-control"
             onChange={handleSearch}
             >
-              <option  defaultValue>Selecciona un parámedico...</option>
+              <option defaultValue>Selecciona un parámedico...</option>
               {citas
-                ? citas.map((cita) => (
-                    <option key={cita.idCita} value={cita.Paramedico.idParamedico}>
-                      {cita.Paramedico.name} {cita.Paramedico.lastName}
+                ? paramedicos.map((paramedico) => (
+                    <option key={paramedico.idCita} value={paramedico.idParamedico}>
+                      {paramedico.name} {paramedico.lastName}
                     </option>
                   ))
                   
