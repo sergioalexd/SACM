@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignOut from "../common/SignOut";
-import SearchPaciente from "../paramedicos/SearchPaciente";
+import SearchPaciente from "./SearchPaciente";
 import SearchParamedico from "./SearchParamedico";
 import SearchCitas from "./SearchCitas";
 

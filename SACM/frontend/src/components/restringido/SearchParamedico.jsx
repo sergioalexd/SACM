@@ -175,7 +175,7 @@ function SearchParamedico() {
           ) : null  
         }
       </div>
-      <div className="row my-5">
+      <div className="row">
         <div className="col-12">
           <form className="row g-3">
           <h5>Buscar paramedico por nombre</h5>
