@@ -49,6 +49,7 @@ const { User, Paciente, Paramedico, FichaMedica, Cita, ParamedicoPaciente, Atenc
     Paramedico.belongsToMany(Paciente, { through: "paramedico_paciente"});
     Paciente.belongsToMany(Paramedico, { through: "paramedico_paciente"});
     Cita.hasOne(Atencion, { foreignKey: "idCita" });
+    Atencion.belongsTo(Cita, { foreignKey: "idCita" });
 
 
 module.exports = {

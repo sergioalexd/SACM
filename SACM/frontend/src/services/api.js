@@ -238,4 +238,57 @@ export class Api {
         return response;
     }
 
+    static async updateCitaMedica(data, id, token) {
+        const response = await fetch(url + "/citas/update/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+            body: JSON.stringify(data),
+        }
+        );
+        return response;
+    }
+
+    static async cancelarCitaMedica(id, token) {
+        const response = await fetch(url + "/citas/cancelar/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async finalizarCitaMedica(id, token) {
+        const response = await fetch(url + "/citas/finalizar/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async getFichaMedicaByIdPaciente(id, token) {
+        const response = await fetch(url + "/pacientes/fichamedica/" + id,
+        {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
 }

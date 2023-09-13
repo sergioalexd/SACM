@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Api } from "../../services/api";
+import { Link } from "react-router-dom";
 
 function SearchPaciente() {
   const [pacientes, setPacientes] = useState([]);
@@ -117,6 +118,11 @@ function SearchPaciente() {
                         <p className="card-text">Telefono: {paciente.telefono}</p>
                         <p className="card-text">Dirección: {paciente.address}</p>
                         <p className="card-text">Comuna: {paciente.comuna}</p>
+                    </div>
+                    <div className="card-footer text-center">
+                    <Link to={`/registros/fichapacientes/${paciente.idPaciente}`} className="btn btn-primary w-50">
+                      Ver ficha médica
+                    </Link>
                     </div>
                   </div>
                 ))

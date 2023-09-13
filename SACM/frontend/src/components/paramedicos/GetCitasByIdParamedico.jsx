@@ -38,6 +38,52 @@ function GetCitasByIdParamedico() {
     }
   }, [idParamedico, islooging, token]);
 
+   const handleCancelar = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+    const id = e.target.value;
+    Api.cancelarCitaMedica(id, token)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 200) {
+          alert(data.msg);
+          window.location.reload();
+        } else {
+          alert(data.msg);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleFinalizar = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+    const id = e.target.value;
+    Api.finalizarCitaMedica(id, token)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 200) {
+          alert(data.msg);
+          window.location.reload();
+        } else {
+          alert(data.msg);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  console.log(citas)
+
   return (
     <>
       <div
@@ -59,6 +105,50 @@ function GetCitasByIdParamedico() {
                       <p className="card-text">Hora: {cita.hora}</p>
                       <p className="card-text">Estado: {cita.status}</p>
                       <p className="card-text">Paciente: {cita.Paciente.name} {cita.Paciente.lastName}</p>
+                      <p className="card-text">Dirección: {cita.Paciente.address}, {cita.Paciente.comuna}</p>
+
+                    </div>
+                    <div className="card-footer">
+                      {
+                        cita.status === "Cancelada" || cita.status === "Finalizada" ?
+                        <button
+                        type="button"
+                        className="btn btn-sm btn-danger mx-3"
+                        onClick={handleCancelar}
+                        value={cita.idCita}
+                        disabled
+                      >
+                        Cancelar cita
+                      </button>:
+                      <button
+                      type="button"
+                      className="btn btn-sm btn-danger mx-3"
+                      onClick={handleCancelar}
+                      value={cita.idCita}
+                    >
+                      Cancelar cita
+                    </button>
+                      }
+                      {
+                        cita.status === "Finalizada" ? <button
+                        type="button"
+                        className="btn btn-sm btn-success"
+                        onClick={handleFinalizar}
+                        value={cita.idCita}
+                        disabled
+                      >
+                        Finalizar
+                      </button>: 
+                        <button
+                        type="button"
+                        className="btn btn-sm btn-success"
+                        onClick={handleFinalizar}
+                        value={cita.idCita}
+                      >
+                        Finalizar
+                      </button>
+
+                      }
                     </div>
                   </div>
                 ))

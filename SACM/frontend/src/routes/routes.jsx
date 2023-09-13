@@ -11,6 +11,7 @@ import { ProtectedRoute } from "../components/common/ProtectedRoute";
 import { ProtectedRouteAdmin } from "../components/common/ProtectedRouteAdmin";
 import RestringidoPage from "../components/restringido/RestringidoPage";
 import LoginPageAdmin from "../components/restringido/LoginPageAdmin";
+import FichaPage from "../components/fichamedica/FichaPage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     element: <RegisterPagePaciente />,
   },
   {
+    path: "/registros/fichapacientes/:id",
+    element: <FichaPage />,
+  },
+  {
     element: <ProtectedRoute paramedico={
       JSON.parse(localStorage.getItem("usuario")) ? JSON.parse(localStorage.getItem("usuario"))?.idParamedico : false
     } />,
@@ -41,7 +46,7 @@ const router = createBrowserRouter([
       {
         path: "/admin/paramedicos",
         element: <ParamedicoPage />,
-      },
+      }
     ],
   },
   {

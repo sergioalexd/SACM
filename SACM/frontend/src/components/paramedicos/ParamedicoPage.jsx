@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../common/NavBar";
 import SignOut from "../common/SignOut";
 import GetCitasByIdParamedico from "./GetCitasByIdParamedico";
-import Footer from "../common/Footer";
 import PerfilParamedico from "./PerfilParamedico";
 import UpdateDataParamedico from "./UpdateDataParamedico";
 import SearchPaciente from "./SearchPaciente";
+import FooterParamedico from "../common/FooterParamedico";
 
 function ParamedicoPage() {
   const [isLogin, setIsLogging] = useState(false);
@@ -74,7 +74,7 @@ function ParamedicoPage() {
       </div>
       <div className="row p-2 bg-white">
         <div className="col-12">
-          <Footer />
+          <FooterParamedico />
         </div>
       </div>
     </div>

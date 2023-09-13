@@ -42,12 +42,14 @@ function AgendarOverview() {
             >
               Agendar una VDI nunca fue tan fácil
             </h1>
-            <ul style={{ listStyle: "none" }} className="text-dark">
-              <li className="p-1 font-weight-bold">Crea tu cuenta</li>
-              <li className="p-1">Selecciona la fecha</li>
-              <li className="p-1">Selecciona la hora</li>
-              <li className="p-1">Elige uno de nuestros paramédicos</li>
-              <li className="p-1">Recibe confirmación de tu cita</li>
+            <ul style={{ listStyle: "none" }}>
+              <li className="p-1 custom-list-item">Crea tu cuenta</li>
+              <li className="p-1 custom-list-item">Selecciona la Fecha</li>
+              <li className="p-1 custom-list-item">Selecciona la Hora</li>
+              <li className="p-1 custom-list-item">Elige a uno de nuestro Paramédicos</li>
+              <li className="p-1 custom-list-item">Recibe la confirmación de tu cita</li>
+              <li className="p-1 custom-list-item"></li>
+              <li className="p-1 custom-list-item"></li>
             </ul>
             <button className="btn btn-primary btn-lg" onClick={handleClick}>Agendar ahora</button>
           </div>

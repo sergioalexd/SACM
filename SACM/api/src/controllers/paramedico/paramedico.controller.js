@@ -136,7 +136,7 @@ const getCitasParamedico = async (req, res) => {
       where: {
         idParamedico: req.params.id,
       },
-      attributes: ["fecha", "hora", "status"],
+      attributes: ["idCita", "fecha", "hora", "status"],
       include: [
         {
           model: Paciente,
@@ -149,6 +149,7 @@ const getCitasParamedico = async (req, res) => {
             "address",
             "telefono",
             "status",
+            "comuna"
           ],
         }
       ],

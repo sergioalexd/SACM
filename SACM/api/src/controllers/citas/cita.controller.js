@@ -11,7 +11,7 @@ const {
 const getCitas = async (req, res) => {
   try {
     const citas = await Cita.findAll({
-      attributes: ["fecha", "hora", "status"],
+      attributes: ["idCita","fecha", "hora", "status"],
       include: [
         {
           model: Paciente,
@@ -24,6 +24,7 @@ const getCitas = async (req, res) => {
             "address",
             "telefono",
             "status",
+            "comuna"
           ],
         },
         {
@@ -143,7 +144,7 @@ const getCitasByIdPaciente = async (req, res) => {
       where: {
         idPaciente: id,
       },
-      attributes: ["fecha", "hora", "status"],
+      attributes: ["idCita","fecha", "hora", "status"],
       include: [
         {
           model: Paramedico,
@@ -182,7 +183,7 @@ const getCitasByIdParamedico = async (req, res) => {
       where: {
         idParamedico: id,
       },
-      attributes: ["fecha", "hora", "status"],
+      attributes: ["idCita","fecha", "hora", "status"],
       include: [
         {
           model: Paciente,
@@ -195,6 +196,7 @@ const getCitasByIdParamedico = async (req, res) => {
             "address",
             "telefono",
             "status",
+            "comuna"
           ],
         },
         {
@@ -209,7 +211,7 @@ const getCitasByIdParamedico = async (req, res) => {
             "telefono",
             "status",
           ],
-        }
+        },
       ],
     });
     res.json({
@@ -225,6 +227,105 @@ const getCitasByIdParamedico = async (req, res) => {
       status: 500,
     });
   }
-}
+};
 
-module.exports = { getCitas, crearCita, getCitasByIdPaciente, getHorasCitas, getCitasByIdParamedico };
+// udpate cita medica
+const updateCitaMedica = async (req, res) => {
+  const { id } = req.params;
+  const { fecha, hora, status } = req.body;
+  try {
+    const cita = await Cita.findOne({ where: { idCita: id } });
+    if (!cita) {
+      return res.status(400).json({
+        ok: false,
+        msg: "La cita medica no existe",
+        status: 400,
+      });
+    }
+    cita.fecha = fecha;
+    cita.hora = hora;
+    cita.status = status;
+    await cita.save();
+    res.json({
+      ok: true,
+      msg: "Cita medica actualizada",
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al actualizar la cita medica",
+      status: 500,
+    });
+  }
+};
+
+// cancelar cita medica
+
+const cancelarCitaMedica = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cita = await Cita.findOne({ where: { idCita: id } });
+    if (!cita) {
+      return res.status(400).json({
+        ok: false,
+        msg: "La cita medica no existe",
+        status: 400,
+      });
+    }
+    cita.status = "Cancelada";
+    await cita.save();
+    res.json({
+      ok: true,
+      msg: "Cita medica cancelada",
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al cancelar la cita medica",
+      status: 500,
+    });
+  }
+};
+
+const finalizarCitaMedica = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cita = await Cita.findOne({ where: { idCita: id } });
+    if (!cita) {
+      return res.status(400).json({
+        ok: false,
+        msg: "La cita medica no existe",
+        status: 400,
+      });
+    }
+    cita.status = "Finalizada";
+    await cita.save();
+    res.json({
+      ok: true,
+      msg: "Cita medica finalizada",
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al finalizar la cita medica",
+      status: 500,
+    });
+  }
+};
+
+module.exports = {
+  getCitas,
+  crearCita,
+  getCitasByIdPaciente,
+  getHorasCitas,
+  getCitasByIdParamedico,
+  updateCitaMedica,
+  cancelarCitaMedica,
+  finalizarCitaMedica,
+};
