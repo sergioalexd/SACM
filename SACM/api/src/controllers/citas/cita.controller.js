@@ -11,10 +11,36 @@ const {
 const getCitas = async (req, res) => {
   try {
     const citas = await Cita.findAll({
-      attributes: ['fecha', 'hora', 'status'],
-      include: Paciente
+      attributes: ["fecha", "hora", "status"],
+      include: [
+        {
+          model: Paciente,
+          attributes: [
+            "idPaciente",
+            "name",
+            "lastName",
+            "rut",
+            "email",
+            "address",
+            "telefono",
+            "status",
+          ],
+        },
+        {
+          model: Paramedico,
+          attributes: [
+            "idParamedico",
+            "name",
+            "lastName",
+            "rut",
+            "email",
+            "address",
+            "telefono",
+            "status",
+          ],
+        },
+      ],
     });
-    console.log(citas);
     res.json({
       ok: true,
       citas,
@@ -75,9 +101,10 @@ const crearCita = async (req, res = response) => {
     });
 
     if (citaExistente) {
-      return res
-        .status(400)
-        .json({ msg: "Ese horario ya fue agendado, por favor seleccione otro horario.", status: 400 });
+      return res.status(400).json({
+        msg: "Ese horario ya fue agendado, por favor seleccione otro horario.",
+        status: 400,
+      });
     }
     const cita = await Cita.create({
       fecha,
@@ -116,7 +143,22 @@ const getCitasByIdPaciente = async (req, res) => {
       where: {
         idPaciente: id,
       },
-      include: [Atencion, Paramedico],
+      attributes: ["fecha", "hora", "status"],
+      include: [
+        {
+          model: Paramedico,
+          attributes: [
+            "idParamedico",
+            "name",
+            "lastName",
+            "rut",
+            "email",
+            "address",
+            "telefono",
+            "status",
+          ],
+        },
+      ],
     });
     res.json({
       ok: true,

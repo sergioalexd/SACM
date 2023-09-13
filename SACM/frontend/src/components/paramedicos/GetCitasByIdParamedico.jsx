@@ -58,6 +58,7 @@ function GetCitasByIdParamedico() {
                       <p className="card-text">Fecha: {cita.fecha}</p>
                       <p className="card-text">Hora: {cita.hora}</p>
                       <p className="card-text">Estado: {cita.status}</p>
+                      <p className="card-text">Paciente: {cita.Paciente.name} {cita.Paciente.lastName}</p>
                     </div>
                   </div>
                 ))

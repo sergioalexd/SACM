@@ -1,5 +1,5 @@
 
-const {Paramedico, Cita, Atencion} = require("../../database/conexion.js");
+const {Paramedico, Cita, Paciente} = require("../../database/conexion.js");
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../../services/generar-jwt");
 const {validarRut} = require("../../services/validar-rut"); 
@@ -136,7 +136,22 @@ const getCitasParamedico = async (req, res) => {
       where: {
         idParamedico: req.params.id,
       },
-      include: [Atencion]
+      attributes: ["fecha", "hora", "status"],
+      include: [
+        {
+          model: Paciente,
+          attributes: [
+            "idPaciente",
+            "name",
+            "lastName",
+            "rut",
+            "email",
+            "address",
+            "telefono",
+            "status",
+          ],
+        }
+      ],
     });
     res.json({
       status: 200,

@@ -73,7 +73,7 @@ function PerfilParamedico() {
                   <p>
                     <strong>Dirección</strong>
                   </p>
-                  <p>{profile.address}</p>
+                  <p>{profile.address}, {profile.comuna}</p>
                 </div>
               </div>
             </div>

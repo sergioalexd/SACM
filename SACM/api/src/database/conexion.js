@@ -43,9 +43,9 @@ const { User, Paciente, Paramedico, FichaMedica, Cita, ParamedicoPaciente, Atenc
     FichaMedica.hasMany(Atencion, { foreignKey: "idFichaMedica" });
     Atencion.hasOne(FichaMedica, { foreignKey: "idFichaMedica" });
     Paramedico.hasMany(Cita, { foreignKey: "idParamedico" });
-    Cita.hasOne(Paramedico, { foreignKey: "idParamedico" });
+    Cita.belongsTo(Paramedico, { foreignKey: "idParamedico" });
     Paciente.hasMany(Cita, { foreignKey: "idPaciente" });
-    Cita.hasOne(Paciente, { foreignKey: "idPaciente" });
+    Cita.belongsTo(Paciente, { foreignKey: "idPaciente" });
     Paramedico.belongsToMany(Paciente, { through: "paramedico_paciente"});
     Paciente.belongsToMany(Paramedico, { through: "paramedico_paciente"});
     Cita.hasOne(Atencion, { foreignKey: "idCita" });

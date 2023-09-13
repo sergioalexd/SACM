@@ -56,6 +56,7 @@ function GetCitasById() {
                       <p className="card-text">Fecha: {cita.fecha}</p>
                       <p className="card-text">Hora: {cita.hora}</p>
                       <p className="card-text">Estado: {cita.status}</p>
+                      <p className="card-text">Paramédico: {cita.Paramedico.name} {cita.Paramedico.lastName}</p>
                     </div>
                   </div>
                 ))
