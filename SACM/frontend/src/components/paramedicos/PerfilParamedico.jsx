@@ -1,10 +1,22 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/GlobalContext";
+import UpdateDataParamedico from "./UpdateDataParamedico";
 
 function PerfilParamedico() {
   const [state] = useContext(AuthContext);
   const [isLogin, setIsLogging] = useState(false);
   const [profile, setProfile] = useState({});
+
+  const [showCreate, setShowCreate] = useState(false);
+
+  const showCreateHandle = (e) => {
+    e.preventDefault();
+    if (showCreate) {
+      setShowCreate(false);
+    } else {
+      setShowCreate(true);
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -26,10 +38,10 @@ function PerfilParamedico() {
           className="col-12 p-5 text-black rounded-5"
           style={{ backgroundColor: "#ffffff" }}
         >
-          <div className="row py-1">
+          <div className="row">
             <div className="col-12">
               <img
-                src="https://via.placeholder.com/100"
+                src="https://via.placeholder.com/75"
                 alt="..."
                 className="rounded-circle img-thumbnail img-fluid my-3"
               />
@@ -71,13 +83,26 @@ function PerfilParamedico() {
               <div className="row">
                 <div className="col-12">
                   <p>
-                    <strong>Dirección</strong>
+                    <strong>Dirección: </strong>{profile.address}, {profile.comuna}
                   </p>
-                  <p>{profile.address}, {profile.comuna}</p>
                 </div>
               </div>
             </div>
           </div>
+          <div className="col-12 text-end">
+            <button
+              type="button"
+              className="btn btn-primary my-3"
+              onClick={showCreateHandle}
+            >
+              Modificar datos            </button>
+          </div>
+          {showCreate ? (
+            <div className="col-12">
+              <hr />
+              <UpdateDataParamedico />
+            </div>
+          ) : null}
         </div>
       )}
     </div>

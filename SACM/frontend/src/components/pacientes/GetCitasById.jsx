@@ -49,15 +49,64 @@ function GetCitasById() {
             </div>
             <div className="col-12">
               {citas.length > 0 ? (
-                citas.slice(0,3).map((cita, index) => (
+                citas.map((cita, index) => (
                   <div className="card my-3 text-black" key={cita.idCita}>
                     <div className="card-body">
-                      <h5 className="card-title">Cita N° {index + 1}</h5>
-                      <p className="card-text">Fecha: {cita.fecha}</p>
-                      <p className="card-text">Hora: {cita.hora}</p>
-                      <p className="card-text">Estado: {cita.status}</p>
+                      <h5 className="card-title">Cita N° {index + 1} | Estado: {cita.status}</h5>
+                      <p className="card-text">Fecha: {cita.fecha} | Hora: {cita.hora}</p>
                       <p className="card-text">Paramédico: {cita.Paramedico.name} {cita.Paramedico.lastName}</p>
                     </div>
+                    <div className="card-footer">
+                    <button
+                        type="button"
+                        className="btn btn-sm btn-primary"
+                        // onClick={hadleEditar}
+                        value={cita.idCita}
+                      >
+                        Editar cita
+                      </button>
+                      {cita.status === "Cancelada" ||
+                      cita.status === "Finalizada" ? (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-danger mx-3"
+                          // onClick={handleCancelar}
+                          value={cita.idCita}
+                          disabled
+                        >
+                          Cancelar cita
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-danger mx-3"
+                          // onClick={handleCancelar}
+                          value={cita.idCita}
+                        >
+                          Cancelar cita
+                        </button>
+                      )}
+                      {cita.status === "Finalizada" ? (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-success"
+                          // onClick={handleFinalizar}
+                          value={cita.idCita}
+                          disabled
+                        >
+                          Finalizar
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-success"
+                          // onClick={handleFinalizar}
+                          value={cita.idCita}
+                        >
+                          Finalizar
+                        </button>
+                      )}
+                      </div>
                   </div>
                 ))
               ) : (

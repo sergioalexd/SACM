@@ -405,6 +405,8 @@ function RegistroPacienteForm() {
             >
               Registrar paciente
             </button>
+
+            <p className="my-3">Todos los campos son obligatorios</p>
           </div>
         </form>
       </div>

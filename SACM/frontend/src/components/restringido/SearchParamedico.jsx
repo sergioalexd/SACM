@@ -217,15 +217,10 @@ function SearchParamedico() {
                   >
                     <div className="card-body">
                       <h5 className="card-title">
-                        {paramedico.name} {paramedico.lastName}
+                        {paramedico.name} {paramedico.lastName} | Estado: {paramedico.status}
                       </h5>
                       <p className="card-text">Rut: {paramedico.rut}</p>
-                      <p className="card-text">Correo: {paramedico.email}</p>
-                      <p className="card-text">
-                        Telefono: {paramedico.telefono}
-                      </p>
-                      <p className="card-text">Comuna: {paramedico.comuna}</p>
-                      <p className="card-text">Estado: {paramedico.status}</p>
+                      <p className="card-text">Correo: {paramedico.email} | Telefono: {paramedico.telefono}</p>
                     </div>
                     <div className="card-footer d-flex">
                       {paramedico.status !== "Activo" ? (

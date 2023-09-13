@@ -4,7 +4,6 @@ import NavBar from "../common/NavBar";
 import SignOut from "../common/SignOut";
 import GetCitasByIdParamedico from "./GetCitasByIdParamedico";
 import PerfilParamedico from "./PerfilParamedico";
-import UpdateDataParamedico from "./UpdateDataParamedico";
 import SearchPaciente from "./SearchPaciente";
 import FooterParamedico from "../common/FooterParamedico";
 
@@ -21,9 +20,6 @@ function ParamedicoPage() {
       setIsLogging(true);
     }
   }, [isLogin, navigate]);
-
-
-
 
   return (
     <div className="container-fluid" style={{ backgroundColor: "#d4dadf" }}>
@@ -42,22 +38,14 @@ function ParamedicoPage() {
           <PerfilParamedico />
         </div>
         <div className="col-md-4 p-3">
-          <div className="row">
-            <div className="col-12">
-              <h4>Actualizar datos</h4>
-              <UpdateDataParamedico />
+          <h4>Agenda</h4>
+          <GetCitasByIdParamedico />
+
+          <div className="row my-3">
+            <div className="col-auto p-5 text-center">
+              {isLogin ? <SignOut /> : null}
             </div>
           </div>
-          <div className="row my-3">
-            <div className="col-12">
-              <GetCitasByIdParamedico />
-            </div>
-          </div>
-          <div className="row my-3">
-          <div className="col-auto p-5 text-center">
-                {isLogin ? <SignOut /> : null}
-              </div>
-              </div>
         </div>
         <div className="col-md-4 p-3">
           <div className="row">

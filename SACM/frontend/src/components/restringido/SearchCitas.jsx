@@ -159,7 +159,7 @@ function SearchCitas() {
         console.log(error);
       });
   }, []);
-console.log(citas);
+  console.log(citas);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -204,19 +204,27 @@ console.log(citas);
           <div className="col-md-12">
             {citas
               ? citas.map((cita) => (
-                  <div key={cita.idCita} className="card my-3">
+                  <div key={cita.idCita} className="card my-3"
+                  style={
+                    cita.status === "Cancelada"
+                      ? { backgroundColor: "#c9747483" } 
+                      : cita.status === "Finalizada" ?
+                      { backgroundColor: "#74c97e83" }
+                      : null
+                  }
+                  >
                     <div className="card-body">
-                      <h5 className="card-text">Fecha: {cita.fecha}</h5>
-                      <p className="card-text">Hora: {cita.hora}</p>
-                      <p className="card-text">
-                        Status:<strong>&nbsp;{cita.status}</strong>
-                      </p>
-                      <p className="card-text">
-                        Paciente: {cita.Paciente.name} {cita.Paciente.lastName}
-                      </p>
-                      <p className="card-text">
+                      <h6 className="card-text">
+                      <small>
+                        Fecha: {cita.fecha} | Hora: {cita.hora} | Estatus:{" "}
+                        {cita.status}
+                      </small>
+                      </h6>
+                      <p className="card-text"><small>
                         Paramédico: {cita.Paramedico.name}{" "}
-                        {cita.Paramedico.lastName}
+                        {cita.Paramedico.lastName} | Paciente:{" "}
+                        {cita.Paciente.name} {cita.Paciente.lastName}
+                      </small>
                       </p>
                     </div>
                     <div className="card-footer">
@@ -228,46 +236,47 @@ console.log(citas);
                       >
                         Editar cita
                       </button>
-                      {
-                        cita.status === "Cancelada" || cita.status === "Finalizada" ?
+                      {cita.status === "Cancelada" ||
+                      cita.status === "Finalizada" ? (
                         <button
-                        type="button"
-                        className="btn btn-sm btn-danger mx-3"
-                        onClick={handleCancelar}
-                        value={cita.idCita}
-                        disabled
-                      >
-                        Cancelar cita
-                      </button>:
-                      <button
-                      type="button"
-                      className="btn btn-sm btn-danger mx-3"
-                      onClick={handleCancelar}
-                      value={cita.idCita}
-                    >
-                      Cancelar cita
-                    </button>
-                      }
-                      {
-                        cita.status === "Finalizada" ? <button
-                        type="button"
-                        className="btn btn-sm btn-success"
-                        onClick={handleFinalizar}
-                        value={cita.idCita}
-                        disabled
-                      >
-                        Finalizar
-                      </button>: 
+                          type="button"
+                          className="btn btn-sm btn-danger mx-3"
+                          onClick={handleCancelar}
+                          value={cita.idCita}
+                          disabled
+                        >
+                          Cancelar cita
+                        </button>
+                      ) : (
                         <button
-                        type="button"
-                        className="btn btn-sm btn-success"
-                        onClick={handleFinalizar}
-                        value={cita.idCita}
-                      >
-                        Finalizar
-                      </button>
-
-                      }
+                          type="button"
+                          className="btn btn-sm btn-danger mx-3"
+                          onClick={handleCancelar}
+                          value={cita.idCita}
+                        >
+                          Cancelar cita
+                        </button>
+                      )}
+                      {cita.status === "Finalizada" ? (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-success"
+                          onClick={handleFinalizar}
+                          value={cita.idCita}
+                          disabled
+                        >
+                          Finalizar
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-success"
+                          onClick={handleFinalizar}
+                          value={cita.idCita}
+                        >
+                          Finalizar
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))

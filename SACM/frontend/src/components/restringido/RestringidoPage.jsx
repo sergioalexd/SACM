@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignOut from "../common/SignOut";
-import SearchPaciente from "./SearchPaciente";
+import SearchPacienteAdmin from "./SearchPacienteAdmin";
 import SearchParamedico from "./SearchParamedico";
 import SearchCitas from "./SearchCitas";
 
@@ -42,7 +42,7 @@ function RestringidoPage() {
       <div className="row p-2">
         <div className="col-md-4 p-3">
           <h4>Gestionar pacientes</h4>
-          <SearchPaciente />
+          <SearchPacienteAdmin />
         </div>
         <div className="col-md-4 p-3">
           <h4>Gestionar paramédicos</h4>

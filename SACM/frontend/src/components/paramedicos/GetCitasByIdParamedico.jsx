@@ -98,13 +98,18 @@ function GetCitasByIdParamedico() {
             <div className="col-12">
               {citas.length > 0 ? (
                 citas.slice(0,3).map((cita, index) => (
-                  <div className="card my-3 text-black" key={cita.idCita}>
+                  <div className="card my-3 text-black" key={cita.idCita}
+                  style={
+                    cita.status === "Cancelada"
+                      ? { backgroundColor: "#c9747483" } 
+                      : cita.status === "Finalizada" ?
+                      { backgroundColor: "#74c97e83" }
+                      : null
+                  }>
                     <div className="card-body">
-                      <h5 className="card-title">Cita N° {index + 1}</h5>
-                      <p className="card-text">Fecha: {cita.fecha}</p>
-                      <p className="card-text">Hora: {cita.hora}</p>
-                      <p className="card-text">Estado: {cita.status}</p>
-                      <p className="card-text">Paciente: {cita.Paciente.name} {cita.Paciente.lastName}</p>
+                      <h5 className="card-title">Cita N° {index + 1} | Estado: {cita.status}</h5>
+                      <p className="card-text">Fecha: {cita.fecha} | Hora: {cita.hora}</p>
+                      <p className="card-text"><small>Paciente: {cita.Paciente.name} {cita.Paciente.lastName} | Teléfono: {cita.Paciente.telefono}</small></p>
                       <p className="card-text">Dirección: {cita.Paciente.address}, {cita.Paciente.comuna}</p>
 
                     </div>

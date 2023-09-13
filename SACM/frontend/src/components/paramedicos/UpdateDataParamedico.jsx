@@ -100,7 +100,6 @@ function UpdateDataParamedico() {
         className="col-12 p-5 text-black rounded-5"
         style={{ backgroundColor: "#ffffff" }}
       >
-        <p>Recuerda mantener tus datos de dirección y contacto actualizados</p>
         <form className="row g-3 border border-1 p-3 my-3">
           <div className="col-md-12 d-flex">
             <FaPhoneAlt

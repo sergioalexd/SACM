@@ -165,7 +165,6 @@ function LoginFormParamedico() {
           <span className="text-danger text-align-center p-3" id="evento"></span>
           <span className="text-success text-align-center p-3" id="evento-success"></span>
         </form>
-        <p>Todos los campos son obligatorios</p> 
       </div>
     </>
   );
