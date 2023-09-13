@@ -217,7 +217,7 @@ function SearchParamedico() {
                       {
                         paramedico.status !== "Activo" ? (
                           <button type="button" className="btn btn-sm btn-primary" value={paramedico.idParamedico} onClick={habilitarParamedico}>
-                            Modificar
+                            Modificar datos
                           </button>
                         ) : (
                           <button type="button" className="btn btn-sm btn-danger" value={paramedico.idParamedico} onClick={inhabilitarParamedico}>

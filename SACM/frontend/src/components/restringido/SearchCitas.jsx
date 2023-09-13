@@ -3,16 +3,17 @@ import { Api } from "../../services/api";
 
 function SearchCitas() {
   const [citas, setCitas] = useState([]);
-  const [nombre, setNombre] = useState("");
+  const [id, setId] = useState("");
 
     const handleSearch = (e) => {
-    setNombre(e.target.value);
+      console.log(e.target.value);
+    setId(e.target.value);
     }
 
 
     const handleClean = (e) => {
       e.preventDefault();
-      setNombre("");
+      setId("");
       const usuario = JSON.parse(localStorage.getItem("usuario"));
       const token = localStorage.getItem("token");
       if (!usuario || !token) {
@@ -34,8 +35,8 @@ function SearchCitas() {
 
     const handleClick = (e) => {
         e.preventDefault();
-        if (!nombre) {
-            alert("Debe ingresar un dato para buscar");
+        if (!id) {
+            alert("Selecciona un paramedico de la lista");
             return;
         }
     const token = localStorage.getItem("token");
@@ -43,11 +44,12 @@ function SearchCitas() {
         return;
     }
 
-    Api.getCitasByNames(nombre, token)
+    Api.getCitasByIdParamedico(id, token)
         .then((response) => response.json())
         .then((data) => {
         if (data.status === 200) {
             setCitas(data.citas);
+            console.log(data.citas);
             document.getElementById("inputNombre").value = "";
         } else {
             alert(data.msg);
@@ -87,17 +89,23 @@ function SearchCitas() {
         <div className="col-12">
           <form className="row g-3">
             <div className="col-md-12 d-flex">
-              <input
-                type="text"
-                className="form-control"
-                id="inputNombre"
-                placeholder="Busca una cita"
-                onChange={handleSearch}
-              />
             </div>
-          </form>
-
-          <div className="col-md-12 d-flex my-3">
+            <select id="inputNombre"
+            list="paramedicosList"
+            className="form-control"
+            onChange={handleSearch}
+            >
+              <option  defaultValue>Selecciona un parámedico...</option>
+              {citas
+                ? citas.map((cita) => (
+                    <option key={cita.idCita} value={cita.Paramedico.idParamedico}>
+                      {cita.Paramedico.name} {cita.Paramedico.lastName}
+                    </option>
+                  ))
+                  
+                : null}
+            </select>
+            <div className="col-md-12 d-flex my-3">
             <button type="button" className="btn btn-primary" onClick={handleClick}>
               Buscar
             </button>
@@ -105,6 +113,7 @@ function SearchCitas() {
               Limpiar
             </button>
           </div>
+          </form>
           <div className="col-md-12">
             {citas
               ? citas.map((cita) => (

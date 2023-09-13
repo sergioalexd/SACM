@@ -175,4 +175,56 @@ const getCitasByIdPaciente = async (req, res) => {
   }
 };
 
-module.exports = { getCitas, crearCita, getCitasByIdPaciente, getHorasCitas };
+const getCitasByIdParamedico = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const citas = await Cita.findAll({
+      where: {
+        idParamedico: id,
+      },
+      attributes: ["fecha", "hora", "status"],
+      include: [
+        {
+          model: Paciente,
+          attributes: [
+            "idPaciente",
+            "name",
+            "lastName",
+            "rut",
+            "email",
+            "address",
+            "telefono",
+            "status",
+          ],
+        },
+        {
+          model: Paramedico,
+          attributes: [
+            "idParamedico",
+            "name",
+            "lastName",
+            "rut",
+            "email",
+            "address",
+            "telefono",
+            "status",
+          ],
+        }
+      ],
+    });
+    res.json({
+      ok: true,
+      citas,
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error al obtener las citas medicas",
+      status: 500,
+    });
+  }
+}
+
+module.exports = { getCitas, crearCita, getCitasByIdPaciente, getHorasCitas, getCitasByIdParamedico };
