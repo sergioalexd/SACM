@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     },
     email: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
       unique: true,
     },
     password: {
@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
     },
     address: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     comuna: {
       type: DataTypes.STRING(50),
@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
     },
     telefono: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     whatsapp: {
       type: DataTypes.STRING(50),

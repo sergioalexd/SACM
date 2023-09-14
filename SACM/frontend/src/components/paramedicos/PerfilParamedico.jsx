@@ -83,7 +83,8 @@ function PerfilParamedico() {
               <div className="row">
                 <div className="col-12">
                   <p>
-                    <strong>Dirección: </strong>{profile.address}, {profile.comuna}
+                    <strong>Dirección: </strong>
+                    {profile.address}, {profile.comuna}
                   </p>
                 </div>
               </div>
@@ -95,7 +96,8 @@ function PerfilParamedico() {
               className="btn btn-primary my-3"
               onClick={showCreateHandle}
             >
-              Modificar datos            </button>
+              Modificar datos{" "}
+            </button>
           </div>
           {showCreate ? (
             <div className="col-12">

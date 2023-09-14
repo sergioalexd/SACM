@@ -291,4 +291,18 @@ export class Api {
         return response;
     }
 
+    static async updateDataParamedico(id, token, data) {
+        const response = await fetch(url + "/paramedicos/update/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+            body: JSON.stringify(data),
+        }
+        );
+        return response;
+    }
+
 }

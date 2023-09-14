@@ -10,7 +10,7 @@ import {
 
 function UpdateDataParamedico() {
   const [data, setData] = useState({});
-  const [idPaciente, setIdPaciente] = useState({});
+  const [idParamedico, setIdPaciente] = useState({});
   const [token, setToken] = useState({});
   //eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(AuthContext);
@@ -28,9 +28,9 @@ function UpdateDataParamedico() {
   };
 
   const onChangeEmail = (e) => {
-    const correo = e.target.value;
-    console.log(correo);
-    setData({ ...data, correo });
+    const email= e.target.value;
+    console.log(email);
+    setData({ ...data, email });
   };
 
   const deleteData = () => {
@@ -44,8 +44,12 @@ function UpdateDataParamedico() {
 
   const handleSumit = (e) => {
     e.preventDefault();
-
-    Api.updatePaciente(data, idPaciente, token)
+    if (!data.telefono || !data.address || !data.email) {
+      document.getElementById("evento").innerHTML =
+        "Ingresa al menos un campo para editar";
+      return;
+    }
+    Api.updateDataParamedico(idParamedico, token, data)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === 200) {
@@ -54,7 +58,7 @@ function UpdateDataParamedico() {
           document.getElementById("sucess").innerHTML = "Datos actualizados correctamente";
           localStorage.setItem(
             "usuario",
-            JSON.stringify(data.pacienteActualizado)
+            JSON.stringify(data.paramedicoActualizado)
           );
           window.location.reload();
         } else {
@@ -72,8 +76,8 @@ function UpdateDataParamedico() {
   useEffect(() => {
     if(localStorage.getItem("usuario")){
     const token = localStorage.getItem("token");
-    const idPaciente = JSON.parse(localStorage.getItem("usuario")).idPaciente;
-    setIdPaciente(idPaciente);
+    const idParamedico = JSON.parse(localStorage.getItem("usuario")).idParamedico;
+    setIdPaciente(idParamedico);
     setToken(token);
     }
   }, []);
