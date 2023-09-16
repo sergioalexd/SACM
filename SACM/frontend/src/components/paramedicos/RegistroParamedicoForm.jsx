@@ -536,6 +536,18 @@ function RegistroParamedicoForm() {
       return;
     }
 
+    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    if(!validEmail.test(data.correo)){
+      alert("El correo ingresado no es válido");
+      return;
+    }
+
+    const validPhone = /^[0-9]+$/;
+    if(!validPhone.test(data.telefono)){
+      alert("El teléfono ingresado no es válido");
+      return;
+    }
+
     e.preventDefault();
     setData(data);
     Api.registerPaciente(data)

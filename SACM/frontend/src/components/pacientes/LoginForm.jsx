@@ -62,7 +62,7 @@ function LoginForm() {
           setAuth(data);
           localStorage.setItem("token", data.token);
           localStorage.setItem("usuario", JSON.stringify(data.paciente));
-          document.getElementById("evento-success").innerHTML ="Paciente logueado correctamente";
+          document.getElementById("evento-success-login").innerHTML ="Paciente logueado correctamente";
         } else {
           document.getElementById("evento").innerHTML =
             data.msg
@@ -155,7 +155,7 @@ function LoginForm() {
             </button>
           </div>
           <span className="text-danger text-align-center p-3" id="evento"></span>
-          <span className="text-success text-align-center p-3" id="evento-success"></span>
+          <span className="text-success text-align-center p-3" id="evento-success-login"></span>
         </form>
       </div>
     </>

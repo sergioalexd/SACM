@@ -12,6 +12,9 @@ const getCitas = async (req, res) => {
   try {
     const citas = await Cita.findAll({
       attributes: ["idCita","fecha", "hora", "status"],
+      order: [
+        ['fecha', 'DESC'],
+      ],
       include: [
         {
           model: Paciente,
@@ -144,6 +147,9 @@ const getCitasByIdPaciente = async (req, res) => {
       where: {
         idPaciente: id,
       },
+      order: [
+        ['fecha', 'DESC'],
+      ],
       attributes: ["idCita","fecha", "hora", "status"],
       include: [
         {
@@ -183,6 +189,9 @@ const getCitasByIdParamedico = async (req, res) => {
       where: {
         idParamedico: id,
       },
+      order: [
+        ['fecha', 'DESC'],
+      ],
       attributes: ["idCita","fecha", "hora", "status"],
       include: [
         {
@@ -232,7 +241,7 @@ const getCitasByIdParamedico = async (req, res) => {
 // udpate cita medica
 const updateCitaMedica = async (req, res) => {
   const { id } = req.params;
-  const { fecha, hora, status } = req.body;
+  const { fecha, hora } = req.body;
   try {
     const cita = await Cita.findOne({ where: { idCita: id } });
     if (!cita) {
@@ -244,7 +253,6 @@ const updateCitaMedica = async (req, res) => {
     }
     cita.fecha = fecha;
     cita.hora = hora;
-    cita.status = status;
     await cita.save();
     res.json({
       ok: true,

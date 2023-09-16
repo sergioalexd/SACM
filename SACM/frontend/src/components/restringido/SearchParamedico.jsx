@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Api } from "../../services/api";
 import RegistroParamedicoForm from "./RegistroParamedicoForm";
+import UpdateDataParamedicoAdmin from "./UpdateDataParamedicoAdmin";
 
 function SearchParamedico() {
   const [paramedicos, setParamedicos] = useState([]);
   const [nombre, setNombre] = useState("");
   const [showCreate, setShowCreate] = useState(false);
+  const [paramId, setParamId] = useState("");
 
   const handleSearch = (e) => {
     setNombre(e.target.value);
@@ -135,6 +137,17 @@ function SearchParamedico() {
     }
   };
 
+  const updateHandle = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+    const id = e.target.value;
+    setParamId(id)
+    console.log(paramId);
+  };
+
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const token = localStorage.getItem("token");
@@ -217,43 +230,106 @@ function SearchParamedico() {
                   >
                     <div className="card-body">
                       <h5 className="card-title">
-                        {paramedico.name} {paramedico.lastName} | Estado: {paramedico.status}
+                        {paramedico.name} {paramedico.lastName} | Estado:{" "}
+                        {paramedico.status}
                       </h5>
                       <p className="card-text">Rut: {paramedico.rut}</p>
-                      <p className="card-text">Correo: {paramedico.email} | Telefono: {paramedico.telefono}</p>
+                      <p className="card-text">
+                        Correo: {paramedico.email} | Telefono:{" "}
+                        {paramedico.telefono}
+                      </p>
                     </div>
+
                     <div className="card-footer d-flex">
-                      {paramedico.status !== "Activo" ? (
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-primary"
-                          value={paramedico.idParamedico}
-                          onClick={habilitarParamedico}
-                        >
-                          Modificar datos
-                        </button>
-                      ) : (
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-primary mx-3"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        onClick={updateHandle}
+                        value={paramedico.idParamedico}
+                      >
+                        Modificar datos
+                      </button>
+
+                      {paramedico.status === "Activo" ? (
                         <button
                           type="button"
                           className="btn btn-sm btn-danger"
                           value={paramedico.idParamedico}
                           onClick={inhabilitarParamedico}
                         >
+                          Suspender
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-primary"
+                          value={paramedico.idParamedico}
+                          onClick={habilitarParamedico}
+                        >
+                          Activar
+                        </button>
+                      )}
+                      {paramedicos.status !== "Eliminado" ? (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-danger mx-3"
+                          value={paramedico.idParamedico}
+                          onClick={deleteParamedico}
+                        >
+                          Dar de baja
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-danger mx-3"
+                          value={paramedico.idParamedico}
+                          onClick={deleteParamedico}
+                          disabled
+                        >
                           Dar de baja
                         </button>
                       )}
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-primary mx-3"
-                        value={paramedico.idParamedico}
-                        onClick={deleteParamedico}
-                      >
-                        Modificar
-                      </button>
                     </div>
                   </div>
                 ))
               : null}
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
+                Actualizar datos del paramédico
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body"><UpdateDataParamedicoAdmin id={paramId} /></div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+            </div>
           </div>
         </div>
       </div>

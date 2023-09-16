@@ -59,14 +59,12 @@ const crearParamedico = async (req, res) => {
 
       const token = await generarJWT(newParamedico.idParamedico);
 
-      res
-        .status(200)
-        .json({
-          msg: "paramedico registrado",
-          newParamedico,
-          token,
-          status: 200,
-        });
+      res.status(200).json({
+        msg: "paramedico registrado",
+        newParamedico,
+        token,
+        status: 200,
+      });
     } else {
       res.status(400).json({ msg: "El correo o rut ya esta registrado" });
     }
@@ -262,6 +260,21 @@ const deleteParamedico = async (req, res) => {
 
 const getParamedicoByNames = async (req, res) => {
   const { names } = req.params;
+  const paramedico = await Paramedico.findOne({ where: { name: names } });
+  if (!paramedico) {
+    return res.status(400).json({
+      status: 400,
+      msg: "El paramedico no existe",
+    });
+  }
+
+  if (paramedico.name.toLowerCase() !== names.toLowerCase()) {
+    return res.status(400).json({
+      status: 400,
+      msg: "El paramedico no existe",
+    });
+  }
+   
   try {
     const paramedicos = await Paramedico.findAll({
       where: {
@@ -284,6 +297,11 @@ const updateDataParamedico = async (req, res) => {
     const paramedico = await Paramedico.findOne({
       where: { idParamedico: id },
     });
+    if (Object.keys(req.body).length === 0) {
+      return res
+        .status(400)
+        .json({ msg: "Indica al menos un campo para actualizar", status: 400 });
+    }
     if (!paramedico) {
       return res.status(400).json({
         status: 400,
@@ -291,12 +309,22 @@ const updateDataParamedico = async (req, res) => {
       });
     }
 
-    paramedico.email = email;
-    paramedico.address = address;
-    paramedico.telefono = telefono;
-    await paramedico.save();
+    const paramedicoEditar = {
+      email: email,
+      address: address,
+      telefono: telefono,
+    };
+
+    const paramedicoEditado = await Paramedico.update(paramedicoEditar, {
+      where: { idParamedico: id },
+    });
+
+    const paramedicoActualizado = await Paramedico.findOne({
+      where: { idParamedico: id },
+    });
+    
     res.json({
-      paramedicoActualizado: paramedico,
+      paramedicoActualizado,
       status: 200,
       ok: true,
       msg: "Paramedico actualizado",

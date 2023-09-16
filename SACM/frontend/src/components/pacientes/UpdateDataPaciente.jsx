@@ -17,19 +17,17 @@ function UpdateDataPaciente() {
 
   const onChangeTelefono = (e) => {
     const telefono = e.target.value;
-    console.log(telefono);
+    
     setData({ ...data, telefono });
   };
 
   const onChangeDireccion = (e) => {
     const address = e.target.value;
-    console.log(address);
     setData({ ...data, address });
   };
 
   const onChangeEmail = (e) => {
     const correo = e.target.value;
-    console.log(correo);
     setData({ ...data, correo });
   };
 
@@ -44,6 +42,24 @@ function UpdateDataPaciente() {
 
   const handleSumit = (e) => {
     e.preventDefault();
+    if (!data.telefono && !data.address && !data.correo) {
+      document.getElementById("evento-update-paciente").innerHTML =
+        "Ingresa al menos un campo para editar";
+      return;
+    }
+
+
+    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    if(!validEmail.test(data.email)){
+      alert("El correo ingresado no es válido");
+      return;
+    }
+
+    const validPhone = /^[0-9]+$/;
+    if(!validPhone.test(data.telefono)){
+      alert("El teléfono ingresado no es válido");
+      return;
+    }
 
     Api.updatePaciente(data, idPaciente, token)
       .then((response) => response.json())
@@ -51,16 +67,16 @@ function UpdateDataPaciente() {
         if (data.status === 200) {
           setData(data);
           deleteData();
-          document.getElementById("sucess").innerHTML = "Datos actualizados correctamente";
+          document.getElementById("exito-actualizar-paciente").innerHTML = "Datos actualizados correctamente";
           localStorage.setItem(
             "usuario",
             JSON.stringify(data.pacienteActualizado)
           );
           window.location.reload();
         } else {
-          document.getElementById("evento").innerHTML = data.msg;
+          document.getElementById("evento-update-paciente").innerHTML = data.msg;
           setTimeout(() => {
-            document.getElementById("evento").innerHTML = "";
+            document.getElementById("evento-update-paciente").innerHTML = "";
           }, 2000);
         }
       })
@@ -164,9 +180,9 @@ function UpdateDataPaciente() {
             <br />
             <span
               className="mx-3 text-danger text-align-center"
-              id="evento"
+              id="evento-update-paciente"
             ></span>
-            <span className="mx-3 text-success text-align-center" id="sucess"></span>
+            <span className="mx-3 text-success text-align-center" id="exito-actualizar-paciente"></span>
           </div>
         </form>
       </div>

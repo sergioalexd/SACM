@@ -8,9 +8,10 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 
-function UpdateDataParamedico() {
+// eslint-disable-next-line react/prop-types
+function UpdateDataParamedicoAdmin({id}) {
   const [data, setData] = useState({});
-  const [idParamedico, setIdPaciente] = useState({});
+  const [idParamedico, setIdParamendico] = useState("");
   const [token, setToken] = useState({});
   //eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(AuthContext);
@@ -46,19 +47,6 @@ function UpdateDataParamedico() {
         "Ingresa al menos un campo para editar";
       return;
     }
-
-    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-    if(!validEmail.test(data.email)){
-      alert("El correo ingresado no es válido");
-      return;
-    }
-
-    const validPhone = /^[0-9]+$/;
-    if(!validPhone.test(data.telefono)){
-      alert("El teléfono ingresado no es válido");
-      return;
-    }
-
     Api.updateDataParamedico(idParamedico, token, data)
       .then((response) => response.json())
       .then((data) => {
@@ -66,10 +54,6 @@ function UpdateDataParamedico() {
           setData(data);
           deleteData();
           document.getElementById("sucess").innerHTML = "Datos actualizados correctamente";
-          localStorage.setItem(
-            "usuario",
-            JSON.stringify(data.paramedicoActualizado)
-          );
           window.location.reload();
         } else {
           document.getElementById("evento").innerHTML = data.msg;
@@ -86,11 +70,10 @@ function UpdateDataParamedico() {
   useEffect(() => {
     if(localStorage.getItem("usuario")){
     const token = localStorage.getItem("token");
-    const idParamedico = JSON.parse(localStorage.getItem("usuario")).idParamedico;
-    setIdPaciente(idParamedico);
+    setIdParamendico(id);
     setToken(token);
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (localStorage.getItem("usuario")) {
@@ -107,7 +90,6 @@ function UpdateDataParamedico() {
       localStorage.removeItem("usuario");
     }
   }, [dispatch]);
-
   return (
     <>
       <div
@@ -187,4 +169,4 @@ function UpdateDataParamedico() {
   );
 }
 
-export default UpdateDataParamedico;
+export default UpdateDataParamedicoAdmin;

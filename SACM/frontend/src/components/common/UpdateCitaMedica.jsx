@@ -3,7 +3,8 @@ import { useEffect, useState, useContext } from "react";
 import { Api } from "../../services/api";
 import { AuthContext } from "../../context/GlobalContext";
 
-function UpdateCitaMedica() {
+// eslint-disable-next-line react/prop-types
+function UpdateCitaMedica({id}) {
   const [data, setData] = useState({});
   const [idCita, setidCita] = useState("");
   const [token, setToken] = useState({});
@@ -29,11 +30,12 @@ function UpdateCitaMedica() {
     });
   };
 
+  useEffect(() => {
+    setidCita(id);
+    }, [id]);
+
   const handleCick = (e) => {
     e.preventDefault();
-    const cita = JSON.parse(localStorage.getItem("cita"))
-    setidCita(cita)
-
     if (!data.fecha || !data.hora) {
       document.getElementById("mensajeerrorcita").innerHTML =
         "Debes ingresar algún campo para modificar";
@@ -49,10 +51,8 @@ function UpdateCitaMedica() {
         if (data.status === 200) {
           setData(data);
           deleteData();
-          localStorage.removeItem("cita");
-          document.getElementById("sucess").innerHTML =
+          document.getElementById("mensajecita").innerHTML =
             "Datos actualizados correctamente";
-          localStorage.setItem("usuario", JSON.stringify(data.citaActualizado));
           window.location.reload();
         } else {
           document.getElementById("evento").innerHTML = data.msg;
@@ -97,7 +97,10 @@ function UpdateCitaMedica() {
       >
         <form>
           <div className="row">
-            <div className="col-12"></div>
+            <div className="col-12">
+            <p>Puedes actualizar la fecha y la hora de tu cita médica</p>
+
+            </div>
             <div className="col-md-12">
               <label className="form-label" htmlFor="inputFecha">
                 Fecha

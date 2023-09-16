@@ -7,27 +7,14 @@ function GetCitasById() {
   const [idPaciente, setIdPaciente] = useState({});
   const [token, setToken] = useState({});
   const [islooging, setIsLogging] = useState(false);
-  const [showCreate, setShowCreate] = useState(false);
   const [citaActual, setCitaActual] = useState("");
-  const [localActual, setLocalActual] = useState("");
 
-  // const showCreateHandle = (e) => {
-  //   e.preventDefault();
+  const citaUpdateHandle = (e) => {
+    e.preventDefault();
+    const id = e.target.value;
+    setCitaActual(id);
+  };
 
-  //   localStorage.setItem("cita", e.target.value);
-  //   const varActual = localStorage.getItem("cita");
-  //   setLocalActual(varActual);
-  //   const selectDom = document.getElementById(varActual).id;
-  //   setCitaActual(selectDom);
-  //   if (citaActual === localActual) {
-  //     setShowCreate(true);
-  //   }
-  //   if (showCreate) {
-  //     setShowCreate(true);
-  //   } else {
-  //     setShowCreate(false);
-  //   }
-  // };
 
   const handleCancelar = (e) => {
     e.preventDefault();
@@ -37,28 +24,6 @@ function GetCitasById() {
     }
     const id = e.target.value;
     Api.cancelarCitaMedica(id, token)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === 200) {
-          alert(data.msg);
-          window.location.reload();
-        } else {
-          alert(data.msg);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleFinalizar = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    if (!token) {
-      return;
-    }
-    const id = e.target.value;
-    Api.finalizarCitaMedica(id, token)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === 200) {
@@ -130,16 +95,17 @@ function GetCitasById() {
                       </p>
                     </div>
                     <div className="card-footer text-end">
-                      {/* <button
+                      <button
                         type="button"
                         className="btn btn-sm btn-primary"
-                        onClick={showCreateHandle}
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        onClick={citaUpdateHandle}
                         value={cita.idCita}
                         id={cita.idCita}
-                        disabled
                       >
                         Editar cita
-                      </button> */}
+                      </button>
                       {cita.status === "Cancelada" ||
                       cita.status === "Finalizada" ? (
                         <button
@@ -164,12 +130,7 @@ function GetCitasById() {
                      
                     </div>
                     <div className="col-12 text-end"></div>
-                    {citaActual === localActual && showCreate ? (
-                      <div className="col-12">
-                        <hr />
-                        <UpdateCitaMedica />
-                      </div>
-                    ) : null}
+                   
                   </div>
                 ))
               ) : (
@@ -184,6 +145,41 @@ function GetCitasById() {
             </div>
           </div>
         )}
+        <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
+               Actualizar cita médica
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body"><UpdateCitaMedica id={citaActual} /></div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
     </>
   );

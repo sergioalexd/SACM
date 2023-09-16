@@ -47,14 +47,14 @@ function Cita() {
     e.preventDefault();
 
     if (!data.fecha || !data.hora || !data.idParamedico) {
-      document.getElementById("mensajeerrorcita").innerHTML =
+      document.getElementById("mensajecita-error").innerHTML =
         "Debe ingresar todos los  campos";
       return;
     }
 
     if (!token) {
-      document.getElementById("mensajecita").innerHTML = "";
-      document.getElementById("mensajeerrorcita").innerHTML =
+      document.getElementById("mensajecita-exito").innerHTML = "";
+      document.getElementById("mensajecita-error").innerHTML =
         "Debe iniciar sesión para avanzar con la creación de la cita";
       return;
     }
@@ -65,13 +65,13 @@ function Cita() {
         if (data.status === 200) {
           setData(data);
           deleteData();
-          document.getElementById("mensajeerrorcita").innerHTML = "";
-          document.getElementById("mensajecita").innerHTML =
+          document.getElementById("mensajecita-error").innerHTML = "";
+          document.getElementById("mensajecita-exito").innerHTML =
             "Cita creada correctamente.";
           window.location.reload();
         } else {
-          document.getElementById("mensajecita").innerHTML = "";
-          document.getElementById("mensajeerrorcita").innerHTML = data.msg;
+          document.getElementById("mensajecita-exito").innerHTML = "";
+          document.getElementById("mensajecita-error").innerHTML = data.msg;
           if (isLogging && state.state.user.usuario.FichaMedica) {
             const idPaciente = state.state.user.usuario.idPaciente;
             const idFichaMedica = state.state.user.usuario.FichaMedica.idFichaMedica;
@@ -203,8 +203,8 @@ function Cita() {
             </button>
           </div>
         </form>
-        <span className="text-success" id="mensajecita"></span>
-        <span className="text-danger" id="mensajeerrorcita"></span>
+        <span className="text-success" id="mensajecita-exito"></span>
+        <span className="text-danger" id="mensajecita-error"></span>
       </div>
     </>
   );

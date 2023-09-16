@@ -305,4 +305,31 @@ export class Api {
         return response;
     }
 
+    static async deletePaciente(id, token) {
+        const response = await fetch(url + "/pacientes/delete/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async updateFichaMedica(id, token, data) {
+        const response = await fetch(url + "/fichamedica/update/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+            body: JSON.stringify(data),
+        }
+        );
+        return response;
+    }
+
 }

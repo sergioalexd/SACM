@@ -126,6 +126,27 @@ function RegistroPacienteForm() {
       alert("Debe ingresar usuario y contraseña");
       return;
     }
+    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    if(!validEmail.test(data.correo)){
+      alert("El correo ingresado no es válido");
+      return;
+    }
+
+    //para incorporar esta validacion es necsario cambiar la logintud del input a 10
+
+    // const validRut = /^[0-9]+[-|‐]{1}[0-9kK]{1}$/;
+    // if(!validRut.test(data.rut)){
+    //   alert("El rut ingresado no es válido");
+    //   return;
+    // }
+
+
+
+    const validPhone = /^[0-9]+$/;
+    if(!validPhone.test(data.telefono)){
+      alert("El teléfono ingresado no es válido");
+      return;
+    }
 
     e.preventDefault();
     setData(data);

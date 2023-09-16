@@ -3,7 +3,7 @@ const {
   FichaMedica,
   Paramedico,
   Atencion,
-  Cita
+  Cita,
 } = require("../../database/conexion.js"); // sequalize
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../../services/generar-jwt");
@@ -205,6 +205,17 @@ const getAllPacientes = async (req, res) => {
 
 const getPacientesByNames = async (req, res) => {
   const { names } = req.params;
+  const paciente = await Paciente.findOne({ where: { name: names } });
+  if (!paciente) {
+    return res
+      .status(400)
+      .json({ msg: "No se ha encontrado el paciente", status: 400 });
+  }
+if (paciente.name.toLowerCase() !== names.toLowerCase()) {
+    return res
+      .status(400)
+      .json({ msg: "No se ha encontrado el paciente", status: 400 });
+  }
   try {
     const pacientes = await Paciente.findAll({
       where: {
@@ -230,15 +241,41 @@ const getPacienteFichaMedica = async (req, res) => {
         {
           model: FichaMedica,
           include: [
-            { 
+            {
               model: Atencion,
-              include: [ Cita ]
-            }
+              include: [Cita],
+            },
           ],
         },
       ],
     });
     res.status(200).json({ msg: "Paciente obtenido", paciente, status: 200 });
+  } catch (error) {
+    res.status(500).json({ msg: "Algo salió mal", error, status: 500 });
+    console.log("error", { msg: error });
+  }
+};
+
+const deletePaciente = async (req, res) => {
+  const { id } = req.params;
+  const paciente = await Paciente.findOne({ where: { idPaciente: id } });
+  console.log(id);
+
+  if(!id){
+    return res.status(400).json({ msg: "No se recibio id del paciente", status: 400 });
+  }
+  try {
+    if (paciente) {
+      paciente.status = "Eliminado";
+      await paciente.save();
+      res
+        .status(200)
+        .json({ msg: "Paciente dado de baja con éxito", paciente, status: 200 });
+    } else {
+      res
+        .status(400)
+        .json({ msg: "No se ha encontrado el paciente", status: 400 });
+    }
   } catch (error) {
     res.status(500).json({ msg: "Algo salió mal", error, status: 500 });
     console.log("error", { msg: error });
@@ -252,4 +289,5 @@ module.exports = {
   getAllPacientes,
   getPacientesByNames,
   getPacienteFichaMedica,
+  deletePaciente,
 };

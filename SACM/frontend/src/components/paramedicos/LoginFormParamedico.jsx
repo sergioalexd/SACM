@@ -58,6 +58,7 @@ function LoginFormParamedico() {
       document.getElementById("evento").innerHTML ="Debe ingresar usuario y contraseña";
       return;
     }
+
     e.preventDefault();
     setData(data);
     Api.loginParamedico(data)
