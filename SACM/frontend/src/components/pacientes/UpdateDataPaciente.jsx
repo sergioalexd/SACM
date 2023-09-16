@@ -56,7 +56,7 @@ function UpdateDataPaciente() {
     }
 
     const validPhone = /^[0-9]+$/;
-    if(!validPhone.test(data.telefono)){
+    if(!validPhone.test(data.telefono) || data.telefono.length < 9){
       alert("El teléfono ingresado no es válido");
       return;
     }
