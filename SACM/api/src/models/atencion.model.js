@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
     //     allowNull: false
     // },
     status: {
-      type: DataTypes.ENUM("Cancelada", "Finalizada", "Anulada", "Pendiente"),
+      type: DataTypes.ENUM("Cancelada", "Finalizada", "Anulada", "Pendiente", "Dada de baja", "En proceso de baja"),
       allowNull: false,
       defaultValue: "Pendiente",
     },

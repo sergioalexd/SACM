@@ -32,6 +32,7 @@ const updateFichaMedica = async (req, res) => {
       parametrosClinicos,
       diagnostico,
       indicaciones,
+      status: "Finalizada",
     };
 
     const atencionEditada = await Atencion.update(fichaEditar, {

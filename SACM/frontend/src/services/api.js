@@ -332,4 +332,43 @@ export class Api {
         return response;
     }
 
+    static async solicitarBajaAtencionMedica(id, token) {
+        const response = await fetch(url + "/atencion/baja/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async getAtencionesPendientesDeBaja(token) {
+        const response = await fetch(url + "/atencion/atencionesporbajar",
+        {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
+    static async autorizarBajaAtencionMedica(id, token) {
+        const response = await fetch(url + "/atencion/autorizarbaja/" + id,
+        {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "access_token": token,
+            },
+        }
+        );
+        return response;
+    }
+
 }

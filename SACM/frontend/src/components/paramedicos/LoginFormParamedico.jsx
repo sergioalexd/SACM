@@ -59,6 +59,7 @@ function LoginFormParamedico() {
       document.getElementById("evento").innerHTML ="Debe ingresar usuario y contraseña";
       return;
     }
+    // eslint-disable-next-line no-useless-escape
     const validEmail =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!validEmail.test(data.email)){
       alert("El correo ingresado no es válido");

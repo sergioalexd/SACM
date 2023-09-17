@@ -4,6 +4,7 @@ import SignOut from "../common/SignOut";
 import SearchPacienteAdmin from "./SearchPacienteAdmin";
 import SearchParamedico from "./SearchParamedico";
 import SearchCitas from "./SearchCitas";
+import AutorizarBajas from "./AutorizarBajas";
 
 function RestringidoPage() {
   const [isLogin, setIsLogging] = useState(false);
@@ -62,9 +63,10 @@ function RestringidoPage() {
         </div>
         <div className="col-md-4 p-3">
           <div className="row">
-            {/* <div className="col-12">
-              <h4>Indicar disponibilidad</h4>
-            </div> */}
+            <div className="col-12">
+              <h4>Autorizar solicitudes de baja</h4>
+              <AutorizarBajas />
+            </div>
             <div className="row">
               {/* <div className="col-auto p-5 text-center">
                 {isLogin ? <SignOut /> : null}

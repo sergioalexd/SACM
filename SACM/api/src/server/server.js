@@ -15,6 +15,7 @@ class Server {
       pacientes: "/api/v1/pacientes",
       paramedicos: "/api/v1/paramedicos",
       fichamedica: "/api/v1/fichamedica",
+      atencion:"/api/v1/atencion"
     };
 
     // Middlewares
@@ -58,8 +59,8 @@ class Server {
     this.app.use(this.paths.pacientes, require("../routes/paciente.router.js"));
     this.app.use(this.paths.frontend, (req, res) => res.render("index"));
     this.app.use(this.paths.paramedicos, require("../routes/paramedico.router.js"));
-    this.app.use(this.paths.fichamedica, require("../routes/fichamedica.router.js")
-    );
+    this.app.use(this.paths.fichamedica, require("../routes/fichamedica.router.js"));
+    this.app.use(this.paths.atencion, require("../routes/atencion.router.js"));
   }
 
   views() {
