@@ -47,8 +47,8 @@ function UpdateDataParamedico() {
       return;
     }
 
-    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-    if(!validEmail.test(data.email)){
+    const validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(data.correo !== null && !validEmail.test(data.email)){
       alert("El correo ingresado no es válido");
       return;
     }
@@ -127,9 +127,10 @@ function UpdateDataParamedico() {
             <input
               type="phone"
               className="form-control"
-              id="inputTelefono"
+              id="inputTelefonoParamedico"
               onChange={onChangeTelefono}
               placeholder="Teléfono"
+              maxLength={9}
             />
           </div>
           <div className="col-md-12 d-flex">

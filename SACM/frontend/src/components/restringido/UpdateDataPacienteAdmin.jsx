@@ -2,18 +2,23 @@
 import { useEffect, useState, useContext } from "react";
 import { Api } from "../../services/api";
 import { AuthContext } from "../../context/GlobalContext";
-import { FaPhoneAlt, FaHouseUser, FaEnvelope } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaHouseUser,
+  FaEnvelope,
+} from "react-icons/fa";
 
 // eslint-disable-next-line react/prop-types
-function UpdateDataParamedicoAdmin({ id }) {
+function UpdateDataPacienteAdmin({ id }) {
   const [data, setData] = useState({});
-  const [idParamedico, setIdParamendico] = useState("");
+  const [idPaciente, setIdPaciente] = useState({});
   const [token, setToken] = useState({});
   //eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useContext(AuthContext);
 
   const onChangeTelefono = (e) => {
     const telefono = e.target.value;
+    
     setData({ ...data, telefono });
   };
 
@@ -23,8 +28,8 @@ function UpdateDataParamedicoAdmin({ id }) {
   };
 
   const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setData({ ...data, email });
+    const correo = e.target.value;
+    setData({ ...data, correo });
   };
 
   const deleteData = () => {
@@ -38,8 +43,8 @@ function UpdateDataParamedicoAdmin({ id }) {
 
   const handleSumit = (e) => {
     e.preventDefault();
-    if (!data.telefono && !data.address && !data.email) {
-      document.getElementById("evento").innerHTML =
+    if (data.telefono === null || data.address === null || data.correo === null) {
+      document.getElementById("evento-update-paciente").innerHTML =
         "Ingresa al menos un campo para editar";
       return;
     }
@@ -47,8 +52,8 @@ function UpdateDataParamedicoAdmin({ id }) {
     const validPhone = /^[0-9]+$/;
     const validEmail =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (data.email) {
-      if (!validEmail.test(data.email)) {
+    if (data.correo) {
+      if (!validEmail.test(data.correo)) {
         alert("El correo ingresado no es válido");
         return;
       }
@@ -61,19 +66,18 @@ function UpdateDataParamedicoAdmin({ id }) {
       }
     }
 
-    Api.updateDataParamedico(idParamedico, token, data)
+    Api.updatePaciente(data, idPaciente, token)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === 200) {
           setData(data);
           deleteData();
-          document.getElementById("sucess").innerHTML =
-            "Datos actualizados correctamente";
+          document.getElementById("exito-actualizar-paciente").innerHTML = "Datos actualizados correctamente";
           window.location.reload();
         } else {
-          document.getElementById("evento").innerHTML = data.msg;
+          document.getElementById("evento-update-paciente").innerHTML = data.msg;
           setTimeout(() => {
-            document.getElementById("evento").innerHTML = "";
+            document.getElementById("evento-update-paciente").innerHTML = "";
           }, 2000);
         }
       })
@@ -83,10 +87,10 @@ function UpdateDataParamedicoAdmin({ id }) {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("usuario")) {
-      const token = localStorage.getItem("token");
-      setIdParamendico(id);
-      setToken(token);
+    if(localStorage.getItem("usuario")){
+    const token = localStorage.getItem("token");
+    setIdPaciente(id);
+    setToken(token);
     }
   }, [id]);
 
@@ -105,12 +109,14 @@ function UpdateDataParamedicoAdmin({ id }) {
       localStorage.removeItem("usuario");
     }
   }, [dispatch]);
+
   return (
     <>
       <div
         className="col-12 p-5 text-black rounded-5"
         style={{ backgroundColor: "#ffffff" }}
       >
+        <p>Recuerda mantener tus datos de dirección y contacto actualizados</p>
         <form className="row g-3 border border-1 p-3 my-3">
           <div className="col-md-12 d-flex">
             <FaPhoneAlt
@@ -124,7 +130,7 @@ function UpdateDataParamedicoAdmin({ id }) {
             <input
               type="phone"
               className="form-control"
-              id="inputTelefonoParamedicoAdmin"
+              id="unputTelefonoPaciente"
               onChange={onChangeTelefono}
               placeholder="Teléfono"
               maxLength={9}
@@ -175,12 +181,9 @@ function UpdateDataParamedicoAdmin({ id }) {
             <br />
             <span
               className="mx-3 text-danger text-align-center"
-              id="evento"
+              id="evento-update-paciente"
             ></span>
-            <span
-              className="mx-3 text-success text-align-center"
-              id="sucess"
-            ></span>
+            <span className="mx-3 text-success text-align-center" id="exito-actualizar-paciente"></span>
           </div>
         </form>
       </div>
@@ -188,4 +191,4 @@ function UpdateDataParamedicoAdmin({ id }) {
   );
 }
 
-export default UpdateDataParamedicoAdmin;
+export default UpdateDataPacienteAdmin;

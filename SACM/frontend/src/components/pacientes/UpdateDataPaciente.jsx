@@ -42,23 +42,27 @@ function UpdateDataPaciente() {
 
   const handleSumit = (e) => {
     e.preventDefault();
-    if (!data.telefono && !data.address && !data.correo) {
+    if (data.telefono === null || data.address === null || data.correo === null) {
       document.getElementById("evento-update-paciente").innerHTML =
         "Ingresa al menos un campo para editar";
       return;
     }
 
-
-    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-    if(!validEmail.test(data.email)){
-      alert("El correo ingresado no es válido");
-      return;
+    const validPhone = /^[0-9]+$/;
+    const validEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (data.correo) {
+      if (!validEmail.test(data.correo)) {
+        alert("El correo ingresado no es válido");
+        return;
+      }
     }
 
-    const validPhone = /^[0-9]+$/;
-    if(!validPhone.test(data.telefono) || data.telefono.length < 9){
-      alert("El teléfono ingresado no es válido");
-      return;
+    if (data.telefono) {
+      if (!validPhone.test(data.telefono) || data.telefono.length < 9) {
+        alert("El teléfono ingresado no es válido");
+        return;
+      }
     }
 
     Api.updatePaciente(data, idPaciente, token)
@@ -130,9 +134,10 @@ function UpdateDataPaciente() {
             <input
               type="phone"
               className="form-control"
-              id="inputTelefono"
+              id="unputTelefonoPaciente"
               onChange={onChangeTelefono}
               placeholder="Teléfono"
+              maxLength={9}
             />
           </div>
           <div className="col-md-12 d-flex">

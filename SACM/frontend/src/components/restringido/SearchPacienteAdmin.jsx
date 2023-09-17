@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Api } from "../../services/api";
 import RegistroPacienteForm from "./RegistroPacienteForm";
+import UpdateDataPacienteAdmin from "./UpdateDataPacienteAdmin";
 
 function SearchPacienteAdmin() {
   const [pacientes, setPacientes] = useState([]);
   const [nombre, setNombre] = useState("");
   const [showCreate, setShowCreate] = useState(false);
+  const [pacienteId, setPacienteId] = useState("");
 
   const handleSearch = (e) => {
     setNombre(e.target.value);
@@ -88,6 +90,16 @@ function SearchPacienteAdmin() {
     } else {
       setShowCreate(true);
     }
+  };
+
+  const updateHandle = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+    const id = e.target.value;
+    setPacienteId(id)
   };
 
   useEffect(() => {
@@ -200,10 +212,12 @@ function SearchPacienteAdmin() {
                       <button
                         type="button"
                         className="btn btn-sm btn-primary mx-3"
-                        value={pacientes.idPaciente}
-                        // onClick={deleteParamedico}
+                        value={paciente.idPaciente}
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        onClick={updateHandle}
                       >
-                        Modificar
+                        Modificar datos
                       </button>
                      
                       </>
@@ -220,6 +234,41 @@ function SearchPacienteAdmin() {
                   </div>
                 ))
               : null}
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
+                Actualizar datos del paciente
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body"><UpdateDataPacienteAdmin id={pacienteId} /> </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+            </div>
           </div>
         </div>
       </div>

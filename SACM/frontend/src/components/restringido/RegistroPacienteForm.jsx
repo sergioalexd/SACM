@@ -123,7 +123,7 @@ function RegistroPacienteForm() {
       return;
     }
 
-    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    const validEmail =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!validEmail.test(data.correo)){
       alert("El correo ingresado no es válido");
       return;
@@ -293,9 +293,10 @@ function RegistroPacienteForm() {
             <input
               type="text"
               className="form-control"
-              id="inputTelefono"
+              id="inputTelefonoPacienteAdmin"
               onChange={onChangeTelefono}
               placeholder="Telefono"
+              maxLength={9}
             />
           </div>
 
