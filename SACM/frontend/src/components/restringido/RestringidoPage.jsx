@@ -64,7 +64,7 @@ function RestringidoPage() {
         <div className="col-md-4 p-3">
           <div className="row">
             <div className="col-12">
-              <h4>Autorizar solicitudes de baja</h4>
+              <h4>Autorizar solicitudes de baja Ficha Clínica</h4>
               <AutorizarBajas />
             </div>
             <div className="row">

@@ -177,7 +177,7 @@ function SearchParamedico() {
             className="btn btn-success my-3"
             onClick={showCreateHandle}
           >
-            Crear paramedico
+            Crear paramédico
           </button>
         </div>
         {showCreate ? (
@@ -189,13 +189,13 @@ function SearchParamedico() {
       <div className="row">
         <div className="col-12">
           <form className="row g-3">
-            <h5>Buscar paramedico por nombre</h5>
+            <h5>Buscar paramédico por nombre</h5>
             <div className="col-md-12 d-flex">
               <input
                 type="text"
                 className="form-control"
                 id="inputNombre"
-                placeholder="Nombre del paramedico"
+                placeholder="Nombre del paramédico"
                 onChange={handleSearch}
               />
             </div>

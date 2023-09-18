@@ -60,7 +60,7 @@ function UpdateFichaMedica({idFichaMedica, idAtencion}) {
             </div>
             <div className="col-md-12 d-flex flex-column">
               <label htmlFor="inputParametros" className="form-label">
-                Parametros clinicos
+                Parámetros clínicos
               </label>
               <textarea
                 className="form-control"
@@ -73,7 +73,7 @@ function UpdateFichaMedica({idFichaMedica, idAtencion}) {
             </div>
             <div className="col-md-12 d-flex flex-column ">
               <label htmlFor="inputDiagnostico" className="form-label">
-                Diagnostico
+                Diagnóstico
               </label>
               <textarea
                 className="form-control"

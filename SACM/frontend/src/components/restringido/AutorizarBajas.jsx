@@ -52,11 +52,11 @@ useEffect(() => {
             bajas.length !== 0 ? bajas.map((baja) => (
                 <div className="card mb-3" key={baja.idAtencion}>
                     <div className="card-body">
-                        <h5 className="card-title">Paciente: {baja.Citum.Paciente.name} {baja.Citum.Paciente.lastName}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">Paramédico: {baja.Citum.Paramedico.name} {baja.Citum.Paramedico.lastName}</h6>
+                        <h5 className="card-title">Paramédico Solicitante: {baja.Citum.Paramedico.name} {baja.Citum.Paramedico.lastName}</h5>
+                        <h6 className="card-subtitle mb-2 text-muted">Paciente: {baja.Citum.Paciente.name} {baja.Citum.Paciente.lastName}</h6>
                         <p className="card-text">Fecha de la cita: {baja.Citum.fecha}</p>
                         <br/>
-                        <p className="card-text">Autorizar baja de ficha médica</p>
+                        <p className="card-text">¿Autorizar baja de ficha clínica?</p>
                         <button className="btn btn-primary" onClick={handleAutorizar} value={baja.idAtencion}>Autorizar</button>
 
                     </div>

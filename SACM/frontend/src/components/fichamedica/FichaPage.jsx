@@ -135,7 +135,7 @@ function FichaPage() {
                               {atencion.Citum.hora}
                             </strong>
                           </p>
-                          <p>Estatus: {atencion.status}</p>
+                          <p>Estado: {atencion.status}</p>
                           {atencion.descripcion !== null ||
                           atencion.parametrosClinicos !== null ||
                           atencion.diagnostico !== null ||

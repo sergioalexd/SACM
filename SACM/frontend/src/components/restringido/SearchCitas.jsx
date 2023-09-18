@@ -222,7 +222,7 @@ function SearchCitas() {
                     <div className="card-body">
                       <h6 className="card-text">
                         <small>
-                          Fecha: {cita.fecha} | Hora: {cita.hora} | Estatus:{" "}
+                          Fecha: {cita.fecha} | Hora: {cita.hora} | Estado:{" "}
                           {cita.status}
                         </small>
                       </h6>

@@ -186,10 +186,10 @@ function SearchPacienteAdmin() {
                     <div className="card-body">
                       <h5 className="card-title">
                         {paciente.name} {paciente.lastName} |
-                        <small> Status: {paciente.status} </small>
+                        <small> Estado: {paciente.status} </small>
                       </h5>
-                      <p className="card-text">Rut: {paciente.rut}</p>
-                      <p className="card-text">Telefono: {paciente.telefono}</p>
+                      <p className="card-text">Rut: {paciente.rut} | Teléfono: {paciente.telefono}</p>
+                      {/*<p className="card-text">Teléfono: {paciente.telefono}</p>*/}
                       <p className="card-text">
                         Dirección: {paciente.address}, {paciente.comuna}
                       </p>
