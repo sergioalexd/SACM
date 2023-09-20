@@ -40,15 +40,15 @@ function Footer() {
           <div className="col-md-3">
             <h3>Compañia</h3>
             <p>
-              <a href="mailto:citas@gmail.com">email</a>
+              <a href="mailto:contacto@centromedico.cl">contacto@centromedico.cl</a>
             </p>
             <p>
-              <a href="tel:+56912345678">+56912345678</a>
+              <a href="tel:+56987654321">+56 9 87654321</a>
             </p>
             {tipoUsuario === null ? (
              <p>
              <Link to="/admin/login-paramedico">
-               Iniciar sesión paramédico
+               Iniciar sesión Paramédico
              </Link>
            </p>
             ) : null }

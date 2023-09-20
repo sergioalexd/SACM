@@ -1,4 +1,3 @@
-// crear navbar con cuatro botones: inicio, ficha clinica, pacientes, nosotros alineados a la derecha
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SignOut from "./SignOut";

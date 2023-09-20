@@ -1,5 +1,5 @@
 import NavBar from "./NavBar";
-import img1 from "../../assets/01.jpg"
+import img1 from "../../assets/05.jpg"
 import Cita from "../Cita";
 
 function Header() {
@@ -76,11 +76,11 @@ function Header() {
         </div>
         <div
         //   className="col-md-6 p-5 d-none d-md-block"
-        className="col-md-6 p-5 bg-primary bg-gradient align-items-center"
+        className="col-md-6 p-5   align-items-center" 
           style={{ backgroundColor: "#135488" }}
         >
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 text-center " style={{ backgroundColor: "#135488" }}>
               <img
                 className="img-fluid img-thumbnail rounded-5 d-inline-block"
                 src={img1}

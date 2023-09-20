@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const url = 'http://localhost:8080/api/v1';
+const url = 'http://localhost:4000/api/v1';
 
 describe("Test de ruta creacion de usuario", () => {
     test("Debe crear un usuario", async () => {
@@ -8,7 +8,7 @@ describe("Test de ruta creacion de usuario", () => {
             nombre: "test",
             apellido: "test",
             correo: "mail@mail.com",
-            contrasena: "asascsdfsdsdfsdf"
+            contrasena: "test"
         });
         expect(res.status).toEqual(200);
     });

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import img02 from "../../assets/02.jpg";
-import img03 from "../../assets/03.jpg";   
+import img02 from "../../assets/06.jpg";
+import img03 from "../../assets/07.jpg";   
 
 function AgendarOverview() {
     const navigate = useNavigate();
@@ -21,6 +21,7 @@ function AgendarOverview() {
               className="img-fluid img-thumbnail rounded-5"
               src={img03}
               alt="Agendamiento de visitas domiciliarias"
+              width="350"
             />
           </div>
           <div className="col-md-3">
@@ -28,6 +29,7 @@ function AgendarOverview() {
               className="img-fluid img-thumbnail rounded-5"
               src={img02}
               alt="Agendamiento de visitas domiciliarias"
+              width="350"
             />
           </div>
           <div className="col-md-6 text-white">
@@ -51,7 +53,10 @@ function AgendarOverview() {
               <li className="p-1 custom-list-item"></li>
               <li className="p-1 custom-list-item"></li>
             </ul>
-            <button className="btn btn-primary btn-lg" onClick={handleClick}>Agendar ahora</button>
+            <div className="text-center">
+              <button className="btn btn-primary btn-lg" onClick={handleClick}>Agendar ahora</button>
+
+            </div>
           </div>
         </div>
       </div>
