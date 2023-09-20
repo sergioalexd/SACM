@@ -39,7 +39,7 @@ class Server {
     // CORS
     this.app.use(cors(
       {
-        origin: "*",
+        origin: "*", //para que el backend reciba peticiones de cualquier ubicacion 
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         preflightContinue: false,
         optionsSuccessStatus: 204,
