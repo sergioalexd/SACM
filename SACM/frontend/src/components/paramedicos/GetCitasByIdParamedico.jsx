@@ -110,7 +110,7 @@ function GetCitasByIdParamedico() {
                       <h5 className="card-title">Cita N° {index + 1} | Estado: {cita.status}</h5>
                       <p className="card-text">Fecha: {cita.fecha} | Hora: {cita.hora}</p>
                       <p className="card-text"><small>Paciente: {cita.Paciente.name} {cita.Paciente.lastName} | Teléfono: {cita.Paciente.telefono}</small></p>
-                      <p className="card-text">Dirección: {cita.Paciente.address}, {cita.Paciente.comuna}</p>
+                      <p className="card-text"><small>Dirección: {cita.Paciente.address}, {cita.Paciente.comuna}</small></p>
 
                     </div>
                     <div className="card-footer">
